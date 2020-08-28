@@ -1,0 +1,54 @@
+<app-profile-details *ngIf="customerSelected" [customer]="customerSelected"></app-profile-details>
+
+<div class="card border-primary mb-3">
+    <div class="card-header">
+        <div class="card-body text-primary">
+            <h5 class="card-title">Users List</h5>
+            <div class="my-2 text-left">
+              <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/customers/form']">Create Customer</button>
+            </div>
+            <table class="table table-bordered table-striped" *ngIf="customers?.length>0">
+                <thead>
+                    <tr>
+                        <th>Profile</th>
+                        <th>Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Date</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cust of customers">
+                        <td>
+                          <img (click)="openModal(cust)" *ngIf="cust?.photo"
+                          src="http://localhost:8081/api/uploads/img/{{cust.photo}}" alt="{{cust.photo}}"
+                          class="img-thumbnail rounded"
+                          style="width:64px; cursor: pointer;">
+
+                          <img (click)="openModal(cust)" *ngIf="!cust?.photo"
+                          src="http://localhost:8081/images/no-user.png" alt="photo"
+                          class="img-thumbnail rounded"
+                          style="width:64px; cursor: pointer;">
+                        </td>
+                        <td>{{ cust.name }}</td>
+                        <td>{{ cust.lastName }}</td>
+                        <td>{{ cust.email }}</td>
+                        <td>{{ cust.createAt }}</td>
+                        <td>
+                          <button class="btn btn-primary btn-block" type="button" [routerLink]="['/customers/form', cust.id]">Edit</button>
+                        </td>
+                        <td>
+                          <button class="btn btn-danger btn-block" type="button" (click)="delete(cust)">Delete</button>
+                        </td>
+                        </tr>
+                </tbody>
+            </table>
+            <div class="alert alert-info" *ngIf="customers?.length == 0">
+              No records in the DB
+            </div>
+            <paginator-nav *ngIf="paginador" [paginador]="paginador"></paginator-nav>
+        </div>
+    </div>
+</div>

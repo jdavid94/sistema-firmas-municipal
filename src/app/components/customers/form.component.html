@@ -1,0 +1,81 @@
+<ul class="alert alert-danger" *ngIf="errors?.length > 0">
+  <li *ngFor="let err of errors">
+    {{ err }}
+  </li>
+</ul>
+<div class="card bg-dark text-white">
+    <div class="card-header">{{ title }}</div>
+    <div class="card-body">
+        <form #customerForm="ngForm">
+            <div class="form-group row">
+                <label for="name" class="col-form-label col-sm-2">Name</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="customer.name" name="name" #name="ngModel">
+                    <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
+                      <div *ngIf="name.errors.required">
+                            Name is Required
+                      </div>
+                      <div *ngIf="name.errors.minlength">
+                            Must be at least 4 characters long
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="lastName" class="col-form-label col-sm-2">Last Name</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="customer.lastName" name="lastName" #lastName="ngModel">
+                    <div class="alert alert-danger" *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+                      <div *ngIf="lastName.errors.required">
+                            Last Name is Required
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="" class="col-form-label col-sm-2">Email</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="customer.email" name="email" #email="ngModel">
+                    <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+                      <div *ngIf="email.errors.required">
+                            Email is Required
+                      </div>
+                      <div *ngIf="email.errors.email">
+                            Must be a valid format of Mail
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="createAt" class="col-form-label col-sm-2">Date</label>
+                <div class="col-sm-6">
+                    <input type="date" class="form-control" [(ngModel)]="customer.createAt" name="createAt">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="region" class="col-form-label col-sm-2">Region</label>
+                <div class="col-sm-6">
+                    <select [compareWith]="compareRegion" class="form-control" [(ngModel)]="customer.region" name="region">
+                      <option [ngValue]="undefined">--- Select Region ---</option>
+                      <option *ngFor="let region of regions" [ngValue]="region">{{region.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <button class="btn btn-primary" role="button" (click)="create()" *ngIf="!customer.id else elseBlock" [disabled]="!customerForm.form.valid">Create</button>
+
+                    <ng-template #elseBlock>
+                      <button class="btn btn-primary" role="button" (click)="update()" [disabled]="!customerForm.form.valid">Update</button>
+                    </ng-template>
+                </div>
+            </div>
+        </form>
+          <button class="btn btn-danger" type="button" [routerLink]="['/customers']">Back</button>
+    </div>
+</div>

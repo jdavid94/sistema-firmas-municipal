@@ -1,0 +1,28 @@
+<nav *ngIf="nav.visible" class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">SFM-App</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="/documents">Documentos</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a *ngIf="authService.hasRole('ROLE_ADMIN')" class="nav-link" routerLink="/customers">Usuarios</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav navbar-right">
+      <li><a *ngIf="!authService.isAuthenticated()" routerLink="/login" class="btn btn-outline-primary">Log In</a></li>
+      <li *ngIf="authService.isAuthenticated()" class="dropdown">
+        <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Usuario {{authService.user.username}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <button (click)="logout()" class="dropdown-item" type="submit">Sign Out</button>
+        </div>
+      </li>
+    </ul>
+    </div>
+</nav>
