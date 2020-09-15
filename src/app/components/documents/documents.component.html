@@ -1,38 +1,43 @@
-<div class="inner contact">
-                <!-- Form Area -->
-                <div class="contact-form">
-                    <!-- Form -->
-                    <form id="contact-us" method="post" action="#">
-                        <!-- Left Inputs -->
-                        <div class="col-xs-6 wow animated slideInLeft" data-wow-delay=".5s">
-                            <!-- Name -->
-                            <input type="text" name="name" id="name" required="required" class="form" placeholder="ID" />
-                            <!-- Email -->
-                            <input type="email" name="mail" id="mail" required="required" class="form" placeholder="Titulo" />
-                            <!-- Subject -->
-                            <input type="text" name="subject" id="subject" required="required" class="form" placeholder="Tipo" />
-                        </div><!-- End Left Inputs -->
-                        <!-- Right Inputs -->
-                        <div class="col-xs-6 wow animated slideInRight" data-wow-delay=".5s">
-                            <!-- Message -->
-                            <textarea name="message" id="message" class="form textarea"  placeholder="Mensaje"></textarea>
-                        </div><!-- End Right Inputs -->
-                        <!-- Bottom Submit -->
-                        <div class="relative fullwidth col-xs-12">
-                            <!-- Send Button -->
-                            <button type="submit" id="submit" name="submit" class="form-btn semibold">Crear Documento</button>
-                        </div><!-- End Bottom Submit -->
-                        <!-- Clear -->
-                        <div class="clear"></div>
-                    </form>
+<ul class="alert alert-danger" *ngIf="errors?.length > 0">
+  <li *ngFor="let err of errors">
+    {{ err }}
+  </li>
+</ul>
+  <!-- Form Area -->
+<div class="container mt-5">
+  <div class="inner contact">
+                      <!-- Form Area -->
+                  <div class="contact-form">
+                      <form #customerForm="ngForm" id="contact-us" autocomplete="off">
 
-                    <!-- Your Mail Message -->
-                    <div class="mail-message-area">
-                        <!-- Message -->
-                        <div class="alert gray-bg mail-message not-visible-message">
-                            <strong>Thank You !</strong> Your email has been delivered.
-                        </div>
-                    </div>
+                          <div class="col-xs-6 wow animated slideInLeft" data-wow-delay=".5s">
+                            <div class="alert alert-danger" *ngIf="folio.invalid && (folio.dirty || folio.touched)">
+                              <div *ngIf="folio.errors.required">
+                                    El folio es requerido
+                              </div>
+                            </div>
+                            <input type="text" name="folio" #folio="ngModel" id="folio" required="required" class="form" for="folio" [(ngModel)]="documents.folio" placeholder="Folio"/>
 
-                </div><!-- End Contact Form Area -->
-            </div><!-- End Inner -->
+                              <select class="form" [(ngModel)]="documents.tipoDocumento" required="required" name="tipoDocumento">
+                                  <option [ngValue]="undefined">Tipo Documento</option>
+                                  <option *ngFor="let tipo of tipos" [ngValue]="tipo">{{tipo.tipo}}</option>
+                              </select>
+                          </div>
+
+                          <div class="alert alert-danger" *ngIf="glosa.invalid && (glosa.dirty || glosa.touched)">
+                            <div *ngIf="glosa.errors.required">
+                                  La Glosa es requerida
+                            </div>
+                          </div>
+                          <div class="col-xs-6 wow animated slideInRight" data-wow-delay=".5s">
+                              <textarea name="glosa" #glosa="ngModel" id="message" required="required" class="form textarea" for="glosa" [(ngModel)]="documents.glosa"  placeholder="Glosa"></textarea>
+                          </div>
+                          <!-- End Right Inputs -->
+                            <div class="relative fullwidth col-xs-12">
+                            <button type="submit" id="submit" name="submit" role="button" class="form-btn semibold" value="Crear Documento" (click)="create()" [disabled]="!customerForm.form.valid">Crear Documento</button>
+                          </div>
+                          <div class="clear"></div>
+                      </form>
+                  </div>
+  </div>
+</div>

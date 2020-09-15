@@ -8,7 +8,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { DirectiveComponent } from './components/directive/directive.component';
 import { CustomersComponent } from './components/customers/customers.component';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormComponent } from './components/customers/form.component';
 import { FormsModule } from '@angular/forms';
 import { PaginatorComponent } from './components/paginator/paginator.component';
@@ -23,17 +23,24 @@ import { ProfileDetailsComponent } from './components/profile-details/profile-de
 import { LoginComponent } from './components/login/login.component';
 import { DocumentsComponent } from './components/documents/documents.component';
 import { UsersComponent } from './components/users/users.component';
-
+import { AuthGuard } from './guards/auth.guard';
+import { RoleGuard } from './guards/role.guard';
+import { TokenInterceptor } from './interceptors/token.interceptor';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { SearchComponent } from './components/search/search.component';
+import { DetalleComponent } from './components/documents/detalle.component';
 
 const routes: Routes = [
   {path: 'directive', component: DirectiveComponent },
-  {path: 'customers', component: CustomersComponent },
-  {path: 'customers/page/:page', component: CustomersComponent },
+  {path: 'customers', component: CustomersComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
+  {path: 'customers/page/:page', component: CustomersComponent, canActivate:[AuthGuard]},
   {path: '', redirectTo: 'login', pathMatch: 'full'},
-  {path: 'customers/form', component: FormComponent },
-  {path: 'customers/form/:id', component: FormComponent },
+  {path: 'customers/form', component: FormComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'} },
+  {path: 'customers/form/:id', component: FormComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'} },
   {path: 'login', component: LoginComponent },
-  {path: 'documents', component: DocumentsComponent }
+  {path: 'documents', component: DocumentsComponent, canActivate:[AuthGuard]},
+  {path: 'documents/:id', component: DetalleComponent, canActivate:[AuthGuard]},
+  {path: 'search', component: SearchComponent, canActivate:[AuthGuard]}
 ];
 
 @NgModule({
@@ -48,7 +55,9 @@ const routes: Routes = [
     ProfileDetailsComponent,
     LoginComponent,
     DocumentsComponent,
-    UsersComponent
+    UsersComponent,
+    SearchComponent,
+    DetalleComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +70,9 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [
     CustomerService,
-    {provide: LOCALE_ID, useValue: 'es' }
+    {provide: LOCALE_ID, useValue: 'es' },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

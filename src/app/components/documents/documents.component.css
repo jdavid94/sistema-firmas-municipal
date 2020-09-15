@@ -6,19 +6,9 @@
    margin:45px auto;
  }
 
- .mail-message-area{
+ .titulo-message-area{
    width:100%;
    padding:0 15px;
- }
-
- .mail-message{
-   width: 100%;
-   background:rgba(255,255,255, 0.8) !important;
-   -webkit-transition: all 0.7s;
-   -moz-transition: all 0.7s;
-   transition: all 0.7s;
-   margin:0 auto;
-   border-radius: 0;
  }
 
  .not-visible-message{
@@ -41,7 +31,7 @@
    border:1px solid rgba(0, 0, 0, 0.075);
    margin-bottom:25px;
    color:#727272 !important;
-   font-size:13px;
+   font-size:16px;
    -webkit-transition: all 0.4s;
    -moz-transition: all 0.4s;
    transition: all 0.4s;

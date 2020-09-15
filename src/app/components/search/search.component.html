@@ -1,0 +1,22 @@
+<div class="container mt-5">
+  <select name="tipo" required="required" class="form">
+    <option *ngFor="let tipo of tipos" [ngValue]="tipo">{{tipo.tipo}}</option>
+  </select>
+  <br>
+  <input autocomplete="off" #termino type="text" (keyup)="buscar(termino.value)" type="text" name="buscar" id="buscar" required="required" class="form" placeholder="Buscar Documento.." />
+</div>
+<div class="card-group animated fadIn fast">
+  <div *ngFor="let doc of docBus">
+    <div class="container mt-3">
+      <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-header">Folio : {{doc.anio}} - {{doc.folio}}</h5>
+        <br>
+        <h6 class="card-subtitle mb-2 text-muted">Tipo : {{doc.tipoDocumento.tipo}}</h6>
+        <p class="card-text">Glosa: {{doc.glosa}}</p>
+        <a [routerLink]="['/documents', doc.id]" type ="button" class="btn btn-info">Detalle</a>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>

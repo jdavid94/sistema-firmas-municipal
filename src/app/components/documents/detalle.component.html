@@ -1,0 +1,17 @@
+<div class="card bg-light" id="pdfTable" #pdfTable>
+  <div class="card-header">
+    <h4>Documento Folio : {{ document.anio }}-{{ document.folio }}</h4>
+  </div>
+  <div class="card-body">
+    <ul class="list-group my-2">
+      <li class="card-header"><h5>Detalle Documento</h5></li>
+      <li class="list-group-item">Area : {{document.area}}</li>
+      <li class="list-group-item">Tipo : {{document.tipoDocumento.tipo}}</li>
+      <li class="list-group-item">Glosa : {{document.glosa}}</li>
+      <li class="list-group-item">Estado : {{document.estado}}</li>
+    </ul>
+    <h4 class="card-title">
+      <a [routerLink]="['/search']" class="btn btn-info btn-xs">Volver</a>
+    </h4>
+  </div>
+</div>
