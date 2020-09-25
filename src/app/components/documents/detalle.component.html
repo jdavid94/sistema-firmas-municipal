@@ -1,17 +1,58 @@
-<div class="card bg-light" id="pdfTable" #pdfTable>
-  <div class="card-header">
-    <h4>Documento Folio : {{ document.anio }}-{{ document.folio }}</h4>
+<div class="izquierda">
+  <div class="card bg-light" *ngIf="document">
+    <div class="card-header bg-info text-white">
+      <h4>Documento Folio : {{ document.anio }}-{{ document.folio }}</h4>
+    </div>
+    <div class="card-body">
+      <ul class="list-group my-2" id="contentToConvert">
+        <li class="card-header"><h5>Detalle Documento</h5></li>
+        <li class="list-group-item">Area : {{document.area}}</li>
+        <li class="list-group-item">Tipo : {{document.tipoDocumento.tipo}}</li>
+        <li class="list-group-item">Glosa : {{document.glosa}}</li>
+        <li class="card-header">Estado : {{document.estado}}</li>
+        <br>
+        <li class="card-header"><h5>Firmas Solicitadas</h5></li>
+        <li class="list-group-item" *ngIf="document.firmaIzquierda">Firma Izquierda : {{document.firmaIzquierda}}</li>
+        <li class="list-group-item" *ngIf="!document.firmaIzquierda">Firma Izquierda : No Solicitada</li>
+        <li class="list-group-item" *ngIf="document.firmaDerecha">Firma Derecha : {{document.firmaDerecha}}</li>
+        <li class="list-group-item" *ngIf="!document.firmaDerecha">Firma Derecha : No Solicitada</li>
+      </ul>
+      <h4 class="card-title">
+        <a [routerLink]="['/search']" *ngIf="authService.hasRole('ROLE_USER')" class="btn btn-info btn-xs mt-2">Volver</a>
+        <a [routerLink]="['/solicitudes']" *ngIf="authService.hasRole('ROLE_ADMIN')" class="btn btn-info btn-xs mt-2">Volver</a>
+        <a class="btn btn-info btn-xs mt-2 float-right text-white" type="button" *ngIf="document.estado != 'Firmado y Aprobado'" (click)="showPdfnoFirmado()">Vista Previa</a>
+        <a class="btn btn-info btn-xs mt-2 float-right text-white" type="button" *ngIf="document.estado === 'Firmado y Aprobado'" (click)="showPdfFirmado()">Vista Previa</a>
+      </h4>
+    </div>
   </div>
-  <div class="card-body">
-    <ul class="list-group my-2">
-      <li class="card-header"><h5>Detalle Documento</h5></li>
-      <li class="list-group-item">Area : {{document.area}}</li>
-      <li class="list-group-item">Tipo : {{document.tipoDocumento.tipo}}</li>
-      <li class="list-group-item">Glosa : {{document.glosa}}</li>
-      <li class="list-group-item">Estado : {{document.estado}}</li>
-    </ul>
-    <h4 class="card-title">
-      <a [routerLink]="['/search']" class="btn btn-info btn-xs">Volver</a>
-    </h4>
+</div>
+
+<div class="derecha mt-2">
+  <div class="card bg-light">
+    <div class="card-header bg-info text-white">
+      <h4>Buscar Usuario Firma</h4>
+    </div>
+    <div class="card-body">
+      <ul class="list-group my-2">
+        <li class="card-header"><h5>Usuarios</h5></li>
+        <select class="browser-default custom-select custom-select-lg mb-3" name="usuarios" [(ngModel)]="seleccionado">
+          <option [ngValue]="undefined">Seleccione Usuario</option>
+          <option *ngFor="let user of users" [ngValue]="user">{{user.name}} {{user.lastName}}</option>
+        </select>
+        </ul>
+        <h4 class="card-title">
+        <button [disabled]="document.estado != 'Pendiente'" (click)="selectUser()" class="btn btn-info" type="button" [routerLink]="">Agregar</button>
+      </h4>
+    </div>
+  </div>
+</div>
+
+<div class="centrar">
+  <div class="relative fullwidth col-xs-12 mt-3">
+  <button type="submit" id="submit" name="submit" role="button" class="form-btn semibold" value="solicitar" (click)="solicitar()" [disabled]="document.estado != 'Pendiente'">Solicitar Firmas</button>
+  </div>
+
+  <div class="relative fullwidth col-xs-12 mt-3" *ngIf="authService.hasRole('ROLE_ADMIN')">
+  <button type="submit" id="submit" name="submit" role="button" class="form-btn semibold" value="solicitar" (click)="firmarDocumento()" [disabled]="document.estado === 'Firmado y Aprobado'">Firmar Documento</button>
   </div>
 </div>

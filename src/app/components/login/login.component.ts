@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
   }
 
   login():void {
-    console.log(this.user);
+    //console.log(this.user);
     if(this.user.username == null || this.user.password == null){
       Swal.fire({
           icon: 'error',
@@ -43,13 +43,17 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.authService.login(this.user).subscribe(resp => {
-      console.log(resp);
+      //console.log(resp);
       //let payload = JSON.parse(atob(resp.access_token.split(".")[1]));
       //console.log(payload);
       this.authService.saveUser(resp.access_token);
       this.authService.saveToken(resp.access_token);
       let user = this.authService.user;
-      this.router.navigate(['/documents']);
+      if (this.authService.hasRole("ROLE_ADMIN") ) {
+        this.router.navigate(['/home']);
+      } else {
+        this.router.navigate(['/home']);
+      }
       Swal.fire({
           icon: 'success',
           title: 'Bienvenido',

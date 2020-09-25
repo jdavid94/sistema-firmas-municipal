@@ -1,0 +1,11 @@
+<div class="centrar">
+  <div class="jumbotron">
+  <h1 class="display-4">Bienvenido al Sistema de Firmas Municipal</h1>
+  <h4 class="display-5">Usuario : {{ this.user.name }} {{ this.user.lastName }} </h4>
+  <hr class="my-4">
+  <p *ngIf="authService.hasRole('ROLE_USER')">Comenzar a Generar Documentos</p>
+  <a *ngIf="authService.hasRole('ROLE_USER')" class="btn btn-primary btn-lg" routerLink="/documents" role="button">Documentos</a>
+  <p *ngIf="authService.hasRole('ROLE_ADMIN')">Revisar Solicitudes Pendientes</p>
+  <a *ngIf="authService.hasRole('ROLE_ADMIN')" class="btn btn-primary btn-lg" routerLink="/solicitudes" role="button">Solicitudes</a>
+</div>
+</div>

@@ -29,16 +29,21 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { SearchComponent } from './components/search/search.component';
 import { DetalleComponent } from './components/documents/detalle.component';
+import { SolicitudComponent } from './components/solicitud/solicitud.component';
+import { HomeComponent } from './components/home/home.component';
+import {DatePipe} from '@angular/common';
 
 const routes: Routes = [
   {path: 'directive', component: DirectiveComponent },
   {path: 'customers', component: CustomersComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
+  {path: 'solicitudes', component: SolicitudComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
   {path: 'customers/page/:page', component: CustomersComponent, canActivate:[AuthGuard]},
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'customers/form', component: FormComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'} },
   {path: 'customers/form/:id', component: FormComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'} },
   {path: 'login', component: LoginComponent },
   {path: 'documents', component: DocumentsComponent, canActivate:[AuthGuard]},
+  {path: 'home', component: HomeComponent, canActivate:[AuthGuard]},
   {path: 'documents/:id', component: DetalleComponent, canActivate:[AuthGuard]},
   {path: 'search', component: SearchComponent, canActivate:[AuthGuard]}
 ];
@@ -57,7 +62,9 @@ const routes: Routes = [
     DocumentsComponent,
     UsersComponent,
     SearchComponent,
-    DetalleComponent
+    DetalleComponent,
+    SolicitudComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -70,6 +77,7 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [
     CustomerService,
+    DatePipe,
     {provide: LOCALE_ID, useValue: 'es' },
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

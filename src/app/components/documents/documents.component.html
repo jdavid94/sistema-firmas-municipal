@@ -8,7 +8,7 @@
   <div class="inner contact">
                       <!-- Form Area -->
                   <div class="contact-form">
-                      <form #customerForm="ngForm" id="contact-us" autocomplete="off">
+                      <form onsubmit="this.reset()" #customerForm="ngForm" id="contact-us" autocomplete="off">
 
                           <div class="col-xs-6 wow animated slideInLeft" data-wow-delay=".5s">
                             <div class="alert alert-danger" *ngIf="folio.invalid && (folio.dirty || folio.touched)">
@@ -33,7 +33,11 @@
                               <textarea name="glosa" #glosa="ngModel" id="message" required="required" class="form textarea" for="glosa" [(ngModel)]="documents.glosa"  placeholder="Glosa"></textarea>
                           </div>
                           <!-- End Right Inputs -->
-                            <div class="relative fullwidth col-xs-12">
+                          <div class="relative fullwidth col-xs-12">
+                          <button type="submit" id="submit" name="submit" role="button" class="form-btn semibold" value="Crear Documento" (click)="create()" [disabled]="!customerForm.form.valid" *NgIf="true">Vista Previa</button>
+                        </div>
+
+                            <div class="relative fullwidth col-xs-12 mt-2">
                             <button type="submit" id="submit" name="submit" role="button" class="form-btn semibold" value="Crear Documento" (click)="create()" [disabled]="!customerForm.form.valid">Crear Documento</button>
                           </div>
                           <div class="clear"></div>

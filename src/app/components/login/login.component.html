@@ -1,23 +1,22 @@
-<div class="centrado" name="centrado">
-<div>
-  <h2 class="text-center">{{title}}</h2>
-</div>
-<div class="card border-primary">
-  <div class="card-header text-center">
-    <h3>{{title2}}</h3>
-    <div class="card-body">
-      <form class="" method="post">
-        <div class="form-group col-sm6">
-          <input [(ngModel)]="user.username" class="form-control" type="text" name="username" id="username" placeholder="Usuario" autofocus required>
-        </div>
-        <div class="form-group col-sm6">
-          <input [(ngModel)]="user.password" class="form-control" type="password" name="password" id="password" placeholder="Password" required>
-        </div>
-        <div class="form-group col-sm6">
-          <input (click)="login()" type="submit" class="btn btn-lg btn-primary btn-block" value="Login">
-        </div>
-      </form>
+  <div class="wrapper fadeInDown">
+  <div id="formContent">
+    <div>
+      <h2 class="text-center">{{title}}</h2>
     </div>
+    <!-- Tabs Titles -->
+    <h2 class="active"> {{title2}} </h2>
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="../../../assets/img/user.svg" id="icon" alt="User Icon" />
+    </div>
+
+    <!-- Login Form -->
+    <form>
+      <input [(ngModel)]="user.username" autocomplete="off" class="fadeIn second" type="text" name="login" id="login" placeholder="Usuario" autofocus required>
+      <input [(ngModel)]="user.password" class="fadeIn third" type="password" name="login" id="password" placeholder="Password" required>
+      <input (click)="login()" type="submit" class="fadeIn fourth" value="Log In">
+    </form>
+
   </div>
-</div>
 </div>

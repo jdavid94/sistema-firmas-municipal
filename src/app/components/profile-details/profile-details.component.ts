@@ -5,6 +5,7 @@ import Swal from 'sweetalert2'
 import {HttpEventType} from '@angular/common/http';
 import { ModalService } from './../../services/modal.service';
 
+
 @Component({
   selector: 'app-profile-details',
   templateUrl: './profile-details.component.html',

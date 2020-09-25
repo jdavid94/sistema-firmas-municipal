@@ -41,6 +41,21 @@ export class DocumentsService {
   }
 
   buscarByFolio( termino: string){
-    return this.http.get(`${this.urlEndPoint}/buscar?folio=${termino}`);      
+    return this.http.get(`${this.urlEndPoint}/buscar?folio=${termino}`);
+    }
+
+
+  solicitar(document: Document): Observable<any> {
+      return this.http.put<any>(`${this.urlEndPoint}/${document.id}`, document).pipe(
+        catchError(e => {
+          if(e.status==400){
+              return throwError(e);
+          }
+          if (e.error.message){
+            console.log(e.error.message);
+          }
+          return throwError(e);
+        })
+      );
     }
 }

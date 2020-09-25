@@ -2,6 +2,12 @@
    padding:10px 0 10px;
  }
 
+.container{
+  position: absolute;
+  top: 15%;
+  left: 35%;
+  transform: translate(-20%, -20%);
+}
  .contact-text{
    margin:45px auto;
  }

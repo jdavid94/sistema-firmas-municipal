@@ -2,6 +2,26 @@
    padding:10px 0 10px;
  }
 
+ .centrar{
+   width: 50%;
+   position: absolute;
+   top: 10%;
+   left: 35%;
+   transform: translate(-20%, -20%);
+ }
+
+ .centrar2{
+   width: 50%;
+   position: absolute;
+   top: 35%;
+   left: 35%;
+   transform: translate(-20%, -20%);
+ }
+
+ .card{
+        height: 260px;
+ }
+
  .contact-text{
    margin:45px auto;
  }
