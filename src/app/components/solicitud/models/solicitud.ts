@@ -10,7 +10,7 @@ export class Solicitud {
   firmaIzquierda: string;
   firmaIzquierdaB: boolean;
   firmaDerecha: string;
-  fimraDerechaB: boolean;
+  firmaDerechaB: boolean;
   solicitante: string;
   estado: string;
   document: Document;

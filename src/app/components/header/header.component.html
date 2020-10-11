@@ -22,7 +22,11 @@
      </li>
 
       <li class="nav-item" routerLinkActive="active">
-        <a *ngIf="authService.hasRole('ROLE_ADMIN')" class="nav-link" routerLink="/customers">Usuarios</a>
+        <a *ngIf="authService.hasRole('ROLE_ADMIN')" class="nav-link" routerLink="/users">Usuarios</a>
+      </li>
+
+      <li class="nav-item" routerLinkActive="active">
+        <a *ngIf="authService.hasRole('ROLE_ADMIN')" class="nav-link" routerLink="/gestor">Gestor Documentos</a>
       </li>
 
       <li class="nav-item" routerLinkActive="active">

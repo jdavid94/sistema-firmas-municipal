@@ -18,7 +18,7 @@
                             </div>
                             <input type="text" name="folio" #folio="ngModel" id="folio" required="required" class="form" for="folio" [(ngModel)]="documents.folio" placeholder="Folio"/>
 
-                              <select class="form" [(ngModel)]="documents.tipoDocumento" required="required" name="tipoDocumento">
+                              <select class="form" [compareWith]="compareTipo" [(ngModel)]="documents.tipoDocumento" required="required" name="tipoDocumento">
                                   <option [ngValue]="undefined">Tipo Documento</option>
                                   <option *ngFor="let tipo of tipos" [ngValue]="tipo">{{tipo.tipo}}</option>
                               </select>
@@ -34,12 +34,24 @@
                           </div>
                           <!-- End Right Inputs -->
                           <div class="relative fullwidth col-xs-12">
-                          <button type="submit" id="submit" name="submit" role="button" class="form-btn semibold" value="Crear Documento" (click)="create()" [disabled]="!customerForm.form.valid" *NgIf="true">Vista Previa</button>
+                          <button type="submit" id="submit" name="submit" role="button" class="form-btn semibold" value="Crear Documento" (click)="create()" [disabled]="!customerForm.form.valid" *ngIf="false">Vista Previa</button>
                         </div>
 
-                            <div class="relative fullwidth col-xs-12 mt-2">
-                            <button type="submit" id="submit" name="submit" role="button" class="form-btn semibold" value="Crear Documento" (click)="create()" [disabled]="!customerForm.form.valid">Crear Documento</button>
-                          </div>
+                        <div>
+                            <div class="relative fullwidth col-xs-12 mt-2" *ngIf="!documents.id else elseBlock">
+                              <button type="submit" id="submit" name="submit" role="button" class="form-btn semibold" value="Crear Documento" (click)="create()" [disabled]="!customerForm.form.valid">Crear Documento</button>
+                            </div>
+                            <ng-template #elseBlock>
+                              <div class="relative fullwidth col-xs-12 mt-2">
+                                <button type="submit" id="submit" name="submit" role="button" class="form-btn semibold" value="Actualizar Documento" (click)="update()" [disabled]="!customerForm.form.valid">Actualizar</button>
+                              </div>
+
+                              <div class="relative fullwidth col-xs-12 mt-2">
+                                <button type="submit" id="submit" name="submit" role="button" class="form-btn semibold" [routerLink]="['/gestor']">Volver</button>
+                              </div>
+                            </ng-template>
+                        </div>
+
                           <div class="clear"></div>
                       </form>
                   </div>

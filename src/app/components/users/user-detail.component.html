@@ -1,0 +1,128 @@
+<ul class="alert alert-danger" *ngIf="errors?.length > 0">
+  <li *ngFor="let err of errors">
+    {{ err }}
+  </li>
+</ul>
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="card bg-light">
+          <div class="card-header bg-info text-white">{{ title }}</div>
+          <div class="card-body">
+              <form #userForm="ngForm">
+
+                <div class="form-group row">
+                    <label for="name" class="col-form-label col-sm-2">Username</label>
+
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" [(ngModel)]="user.username" name="username" #username="ngModel">
+                        <div class="alert alert-danger" *ngIf="username.invalid && (username.dirty || username.touched)">
+                          <div *ngIf="username.errors.required">
+                                Username is Required
+                          </div>
+                          <div *ngIf="username.errors.minlength">
+                                Must be at least 4 characters long
+                          </div>
+                        </div>
+                    </div>
+                </div>
+
+                  <div class="form-group row">
+                      <label for="name" class="col-form-label col-sm-2">Nombre</label>
+                      <div class="col-sm-6">
+                          <input type="text" class="form-control" [(ngModel)]="user.name" name="name" #name="ngModel">
+                          <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
+                            <div *ngIf="name.errors.required">
+                                  Name is Required
+                            </div>
+                            <div *ngIf="name.errors.minlength">
+                                  Must be at least 4 characters long
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="form-group row">
+                      <label for="lastName" class="col-form-label col-sm-2">Apellido</label>
+                      <div class="col-sm-6">
+                          <input type="text" class="form-control" [(ngModel)]="user.lastName" name="lastName" #lastName="ngModel">
+                          <div class="alert alert-danger" *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+                            <div *ngIf="lastName.errors.required">
+                                  Last Name is Required
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="form-group row">
+                      <label for="" class="col-form-label col-sm-2">Email</label>
+                      <div class="col-sm-6">
+                          <input type="text" class="form-control" [(ngModel)]="user.email" name="email" #email="ngModel">
+                          <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+                            <div *ngIf="email.errors.required">
+                                  Email is Required
+                            </div>
+                            <div *ngIf="email.errors.email">
+                                  Must be a valid format of Mail
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="form-group row">
+                      <label for="name" class="col-form-label col-sm-2">Rut</label>
+                      <div class="col-sm-6">
+                          <input type="text" class="form-control" [(ngModel)]="user.userRut" name="userRut" #rut="ngModel">
+                          <div class="alert alert-danger" *ngIf="rut.invalid && (rut.dirty || rut.touched)">
+                            <div *ngIf="rut.errors.required">
+                                  userRut is Required
+                            </div>
+                            <div *ngIf="rut.errors.minlength">
+                                  Must be at least 4 characters long
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="form-group row">
+                      <label for="cargos" class="col-form-label col-sm-2">Cargo</label>
+                      <div class="col-sm-6">
+                          <select [compareWith]="compareCargo" class="form-control" [(ngModel)]="user.cargo" name="cargo">
+                            <option [ngValue]="undefined">--- Select Cargo ---</option>
+                            <option *ngFor="let cargo of cargos" [ngValue]="cargo">{{cargo.tipo}}</option>
+                          </select>
+                      </div>
+                  </div>
+
+
+                  <div class="form-group row" *ngIf="user.id">
+                      <label for="roles" class="col-form-label col-sm-2">Rol</label>
+                      <div class="col-sm-6">
+                          <select [compareWith]="compareRole" class="form-control" [(ngModel)]="user.roles" name="roles">
+                            <option [ngValue]="undefined">--- Select Rol ---</option>
+                            <option *ngFor="let rol of roles" [ngValue]="rol">{{rol.username}}</option>
+                          </select>
+                      </div>
+                  </div>
+              </form>
+              <br />
+
+
+        <div class="row justify-content-center align-self-center">
+          <div class="col-4">
+            <button class="btn btn-primary btn-block" role="button" (click)="create()" *ngIf="!user.id else elseBlock" [disabled]="!userForm.form.valid">Crear</button>
+
+            <ng-template #elseBlock>
+              <button class="btn btn-primary btn-block" role="button" (click)="update()" [disabled]="!userForm.form.valid">Actualizar</button>
+            </ng-template>
+            <br>
+              <button class="btn btn-danger btn-block" type="button" [routerLink]="['/users']">Regresar</button>
+          </div>
+        </div>
+
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

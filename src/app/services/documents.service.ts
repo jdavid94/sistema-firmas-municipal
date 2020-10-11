@@ -57,5 +57,30 @@ export class DocumentsService {
           return throwError(e);
         })
       );
-    }
+  }
+
+update(document: Document): Observable<any> {
+      return this.http.put<any>(`${this.urlEndPoint}/${document.id}`, document).pipe(
+        catchError(e => {
+          if(e.status==400){
+              return throwError(e);
+          }
+          if (e.error.message){
+            console.log(e.error.message);
+          }
+          return throwError(e);
+        })
+      );
+  }
+
+ delete(id: number): Observable<Document> {
+      return this.http.delete<Document>(`${this.urlEndPoint}/${id}`).pipe(
+        catchError(e => {
+          if (e.error.message){
+            console.log(e.error.message);
+          }
+          return throwError(e);
+        })
+      );
+  }
 }

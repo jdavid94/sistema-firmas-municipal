@@ -22,18 +22,16 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 })
 export class DetalleComponent implements OnInit {
 
-
-  public document: Document;
-  public solicitudF: Solicitud;
-  public solicitud: Solicitud = new Solicitud();
   titulo: string = 'Documento';
   users: User[];
   seleccionado: User;
+  public document: Document;
+  public solicitudF: Solicitud;
+  public solicitud: Solicitud = new Solicitud();
+  public user: User = new User();
   public errors: string[];
   public firma : string = "../../../assets/img/firma.png";
-  public validador: boolean = false;
-  public validador2: boolean = false;
-  public user: User = new User();
+  public firma2 : string = "../../../assets/img/firma2.png";
   public newID: number;
 
 
@@ -116,7 +114,7 @@ export class DetalleComponent implements OnInit {
     this.solicitud.firmaIzquierda = this.document.firmaIzquierda;
     this.solicitud.firmaDerecha = this.document.firmaDerecha;
     this.solicitud.firmaIzquierdaB = false;
-    this.solicitud.fimraDerechaB = false;
+    this.solicitud.firmaDerechaB = false;
     this.solicitud.document = this.document
     this.solicitud.solicitante = this.user.name + ' ' + this.user.lastName
     this.solicitudService.create(this.solicitud).subscribe(
@@ -136,7 +134,14 @@ export class DetalleComponent implements OnInit {
   }
 
   public firmarDocumento(): void {
-    this.document.estado = "Firmado y Aprobado"
+    let estado = '';
+    if (this.document.firmaDerecha === 'No Solicitada'){
+      this.document.estado = "Firmado y Aprobado"
+    }else if (this.document.firmaDerecha != 'No Solicitada' && this.solicitudF.firmaIzquierdaB === false){
+      this.document.estado = "Pendiente Firma"
+    }else if (this.solicitudF.firmaDerecha != 'No Solicitada' && this.solicitudF.firmaIzquierdaB === true) {
+      this.document.estado = "Firmado y Aprobado"
+    }
     this.documentService.solicitar(this.document).subscribe(
       resp => {
         //console.log("Documento Actualizado")
@@ -147,15 +152,26 @@ export class DetalleComponent implements OnInit {
         console.error(err.error.Errors);
       }
     );
-    this.solicitudF.estado = "Firmado y Aprobado";
-    this.solicitudF.firmaIzquierdaB = true;
+    if (this.solicitudF.firmaDerecha === 'No Solicitada'){
+      this.solicitudF.estado = "Firmado y Aprobado";
+      estado = ' Aprobado'
+      this.solicitudF.firmaIzquierdaB = true;
+    }else if (this.solicitudF.firmaDerecha != 'No Solicitada' && this.solicitudF.firmaIzquierdaB === false) {
+      this.solicitudF.estado = "Pendiente Firma";
+      estado = ' Espera Firma'
+      this.solicitudF.firmaIzquierdaB = true;
+    }else if (this.solicitudF.firmaDerecha != 'No Solicitada' && this.solicitudF.firmaIzquierdaB === true) {
+      this.solicitudF.estado = "Firmado y Aprobado";
+      estado = ' Aprobado'
+      this.solicitudF.firmaDerechaB = true;
+    }
     this.solicitudService.update(this.solicitudF).subscribe(
       resp => {
         //console.log(this.solicitudF);
         Swal.fire({
             icon: 'success',
             title: 'Documento Firmado con Exito!',
-            text: 'Documento ' + this.document.anio + '-' + this.document.folio + ' Aprobado'
+            text: 'Documento ' + this.document.anio + '-' + this.document.folio + estado
         })
       },
       err => {
@@ -316,6 +332,96 @@ let docDefinition = {
         [{
             text: '______________________' + '\n' + this.document.firmaDerecha + '\n' + 'Alcalde',
             margin: [30, 200, 0, 0],
+            alignment: 'center'
+        }]
+      ]
+    },
+  ],
+  styles: {
+    name: {
+      fontSize: 16,
+      bold: true
+    }
+  }
+};
+pdfMake.createPdf(docDefinition).open();
+}
+
+async showPdfFirmado2() {
+let fecha = this.document.fechaCreacion
+let newDate = this.datePipe.transform(fecha,"longDate");
+let dateTimeFirma = this.datePipe.transform(new Date(),"medium");
+let docDefinition = {
+  content: [
+    {
+      image: await this.getBase64ImageFromURL("../../../assets/img/municipalidad.png"),
+      width: 100,
+      height: 100,
+      margin: [0, 0, 0, 0]
+    },
+    {
+      text: 'Documento Folio N° ' + this.document.anio + '-' + this.document.folio ,
+      bold: true,
+      fontSize: 18,
+      alignment: 'center',
+      margin: [0, 0, 0, 15]
+    },
+    {
+      text: 'Ilustre Municipalidad De Concón',
+      alignment: 'center',
+      margin: [0, 0, 0, 15]
+    },
+    {
+      text: 'Viña del Mar : ' + newDate,
+      margin: [0, 0, 0, 5]
+    },
+    {
+       text: 'Area : ' + this.document.area,
+       margin: [0, 0, 0, 5]
+     },
+     {
+       text: 'Materia : ' + this.document.tipoDocumento.tipo,
+       margin: [0, 0, 0, 20]
+     },
+    {
+      columns: [
+        [
+        {
+          text: 'Glosa del Documento',
+          margin: [0, 0, 0, 10]
+        },
+        {
+          text: this.document.glosa,
+          margin: [0, 0, 0, 5]
+        }
+        ],
+        []
+      ]
+    },
+    {
+      text: 'ANÓTESE; COMUNÍQUESE Y ARCHIVESE.',
+      margin: [0, 180, 0, 0]
+    },
+    {
+      columns: [
+        [
+          {image: await this.getBase64ImageFromURL(this.firma),
+          fit: [120, 120],
+          margin: [20, 90, 0, 0],
+          alignment: 'center'
+        },{
+          text: 'Firmado: '+ dateTimeFirma + '\n' + '______________________' + '\n' + this.document.firmaIzquierda + '\n' + 'Director Municipal',
+          margin: [20, 0, 0, 0],
+          alignment: 'center'}
+        ],
+        [
+            {image: await this.getBase64ImageFromURL(this.firma2),
+            fit: [120, 120],
+            margin: [30, 100, 0, 0],
+            alignment: 'center'
+        },{
+            text: 'Firmado: '+ dateTimeFirma + '\n' + '______________________' + '\n' + this.document.firmaDerecha + '\n' + 'Alcalde',
+            margin: [30, 13, 0, 0],
             alignment: 'center'
         }]
       ]

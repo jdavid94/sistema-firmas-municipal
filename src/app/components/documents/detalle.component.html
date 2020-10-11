@@ -20,8 +20,9 @@
       <h4 class="card-title">
         <a [routerLink]="['/search']" *ngIf="authService.hasRole('ROLE_USER')" class="btn btn-info btn-xs mt-2">Volver</a>
         <a [routerLink]="['/solicitudes']" *ngIf="authService.hasRole('ROLE_ADMIN')" class="btn btn-info btn-xs mt-2">Volver</a>
-        <a class="btn btn-info btn-xs mt-2 float-right text-white" type="button" *ngIf="document.estado != 'Firmado y Aprobado'" (click)="showPdfnoFirmado()">Vista Previa</a>
-        <a class="btn btn-info btn-xs mt-2 float-right text-white" type="button" *ngIf="document.estado === 'Firmado y Aprobado'" (click)="showPdfFirmado()">Vista Previa</a>
+        <a class="btn btn-info btn-xs mt-2 float-right text-white" type="button" *ngIf="document.estado != 'Firmado y Aprobado' && document.estado != 'Pendiente Firma'" (click)="showPdfnoFirmado()">Vista Previa</a>
+        <a class="btn btn-info btn-xs mt-2 float-right text-white" type="button" *ngIf="document.estado === 'Pendiente Firma'" (click)="showPdfFirmado()">Vista Previa</a>
+        <a class="btn btn-info btn-xs mt-2 float-right text-white" type="button" *ngIf="document.estado === 'Firmado y Aprobado' && document.firmaDerecha != 'No Solicitada'" (click)="showPdfFirmado2()">Vista Previa</a>
       </h4>
     </div>
   </div>

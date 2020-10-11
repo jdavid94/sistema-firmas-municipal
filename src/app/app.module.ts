@@ -23,6 +23,7 @@ import { ProfileDetailsComponent } from './components/profile-details/profile-de
 import { LoginComponent } from './components/login/login.component';
 import { DocumentsComponent } from './components/documents/documents.component';
 import { UsersComponent } from './components/users/users.component';
+import { UserDetailComponent } from './components/users/user-detail.component';
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
 import { TokenInterceptor } from './interceptors/token.interceptor';
@@ -32,10 +33,15 @@ import { DetalleComponent } from './components/documents/detalle.component';
 import { SolicitudComponent } from './components/solicitud/solicitud.component';
 import { HomeComponent } from './components/home/home.component';
 import {DatePipe} from '@angular/common';
+import { GestorDocumentosComponent } from './components/documents/gestor-documentos.component';
+
 
 const routes: Routes = [
   {path: 'directive', component: DirectiveComponent },
   {path: 'customers', component: CustomersComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
+  {path: 'users', component: UsersComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
+  {path: 'users/detail', component: UserDetailComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'} },
+  {path: 'users/detail/:id', component: UserDetailComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'} },
   {path: 'solicitudes', component: SolicitudComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
   {path: 'customers/page/:page', component: CustomersComponent, canActivate:[AuthGuard]},
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -43,9 +49,11 @@ const routes: Routes = [
   {path: 'customers/form/:id', component: FormComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'} },
   {path: 'login', component: LoginComponent },
   {path: 'documents', component: DocumentsComponent, canActivate:[AuthGuard]},
-  {path: 'home', component: HomeComponent, canActivate:[AuthGuard]},
   {path: 'documents/:id', component: DetalleComponent, canActivate:[AuthGuard]},
-  {path: 'search', component: SearchComponent, canActivate:[AuthGuard]}
+  {path: 'gestor', component: GestorDocumentosComponent, canActivate:[AuthGuard]},
+  {path: 'gestor/:id', component: DocumentsComponent, canActivate:[AuthGuard]},
+  {path: 'search', component: SearchComponent, canActivate:[AuthGuard]},
+  {path: 'home', component: HomeComponent, canActivate:[AuthGuard]},
 ];
 
 @NgModule({
@@ -64,7 +72,9 @@ const routes: Routes = [
     SearchComponent,
     DetalleComponent,
     SolicitudComponent,
-    HomeComponent
+    HomeComponent,
+    UserDetailComponent,
+    GestorDocumentosComponent
   ],
   imports: [
     BrowserModule,

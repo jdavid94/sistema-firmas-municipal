@@ -3,7 +3,7 @@ import { NavbarService } from './../../services/navbar.service';
 import { DocumentsService } from './../../services/documents.service';
 import { TipoDocument } from './models/tipo-document';
 import { Document } from '../documents/models/document';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthService } from './../../services/auth.service';
 import { User } from '../users/user';
@@ -22,7 +22,7 @@ export class DocumentsComponent implements OnInit {
   public errors: string[];
   public user: User = new User();
 
-  constructor(public nav: NavbarService, public documentService: DocumentsService, private router: Router, public authService: AuthService, public usersService: UsersService) { }
+  constructor(public nav: NavbarService, public documentService: DocumentsService, private router: Router, public authService: AuthService, public usersService: UsersService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.nav.show();
@@ -32,6 +32,7 @@ export class DocumentsComponent implements OnInit {
         //console.log(this.authService.user);
     });
     this.loadUser();
+    this.loadDocument();
     //this.activatedRoute.params.subscribe(params => {
       //let userId = +params.get('');
     //})
@@ -44,6 +45,17 @@ export class DocumentsComponent implements OnInit {
       this.user = resp;
       //console.log(resp);
     })
+  }
+
+  public loadDocument(): void {
+     this.activatedRoute.params.subscribe(params => {
+       const id = params['id'];
+       if (id) {
+         this.documentService.getDocument(id).subscribe(
+            (resp:any) => this.documents = resp)
+            //console.log(this.documents);
+       }
+     })
   }
 
   public create(): void {
@@ -66,5 +78,30 @@ export class DocumentsComponent implements OnInit {
         console.error(err.error.Errors);
       }
   );
+}
+
+public update(): void {
+  this.documentService.update(this.documents).subscribe(
+    resp => {
+      this.router.navigate(['/gestor'])
+      Swal.fire({
+          icon: 'success',
+          title: 'Documento Actualizado!',
+          text: `Documento Actualizado correctamente`
+      })
+    },
+    err => {
+      this.errors = err.error.Errors as string[];
+      console.error('Cod of the error from backend: ' + err.status);
+      console.error(err.error.Errors);
+    }
+  )
+}
+
+compareTipo(o1: Document, o2: Document):boolean {
+  if(o1 === undefined && o2 === undefined){
+    return true;
+  }
+  return o1 ===null || o2 ===null || o1 ===undefined || o2 ===undefined? false: o1.id===o2.id;
 }
 }
