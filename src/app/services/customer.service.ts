@@ -7,7 +7,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
 import { Router } from '@angular/router';
-
+import { URL_BACKEND } from '../config/config';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 export class CustomerService {
 
   private urlEndPoint:string = 'http://localhost:8081/api/customers';
+  //private urlEndPoint: string = URL_BACKEND + '/api/customers';
   //private httpHeaders = new HttpHeaders({'Content-Type':'application/json'})
   constructor( private http: HttpClient, private router: Router) { }
 

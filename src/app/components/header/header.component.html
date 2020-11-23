@@ -21,17 +21,23 @@
        </div>
      </li>
 
-      <li class="nav-item" routerLinkActive="active">
-        <a *ngIf="authService.hasRole('ROLE_ADMIN')" class="nav-link" routerLink="/users">Usuarios</a>
-      </li>
+     <li class="nav-item">
+       <a class="nav-link" routerLink="">Informes</a>
+     </li>
 
-      <li class="nav-item" routerLinkActive="active">
-        <a *ngIf="authService.hasRole('ROLE_ADMIN')" class="nav-link" routerLink="/gestor">Gestor Documentos</a>
-      </li>
+     <li class="nav-item dropdown" *ngIf="authService.hasRole('ROLE_ADMIN')" routerLinkActive="active">
+      <a class="nav-link dropdown-toggle" routerLinkActive="active" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Gestion Administrador
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" routerLink="/users">Usuarios</a>
+        <a class="dropdown-item" routerLink="/gestor">Documentos</a>
+        <a class="dropdown-item" routerLink="/solicitudes">Solicitudes</a>
+        <a class="dropdown-item" routerLink="/solicitudes">Parametros</a>
+      </div>
+    </li>
 
-      <li class="nav-item" routerLinkActive="active">
-        <a *ngIf="authService.hasRole('ROLE_ADMIN')" class="nav-link" routerLink="/solicitudes">Solicitudes</a>
-      </li>
+
     </ul>
     <ul class="navbar-nav navbar-right">
       <li><a *ngIf="!authService.isAuthenticated()" routerLink="/login" class="btn btn-outline-primary">Log In</a></li>
@@ -40,6 +46,7 @@
           Usuario {{authService.user.username}}
         </a>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item" routerLink="">Perfil</a>
           <button (click)="logout()" class="dropdown-item" type="submit">Sign Out</button>
         </div>
       </li>

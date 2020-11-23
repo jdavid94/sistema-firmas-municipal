@@ -4,10 +4,11 @@ import { DocumentsService } from './../../services/documents.service';
 import { TipoDocument } from './models/tipo-document';
 import { Document } from '../documents/models/document';
 import { Router, ActivatedRoute } from '@angular/router';
-import Swal from 'sweetalert2';
 import { AuthService } from './../../services/auth.service';
-import { User } from '../users/user';
 import { UsersService } from './../../services/users.service';
+import { User } from '../users/user';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-documents',
@@ -33,17 +34,12 @@ export class DocumentsComponent implements OnInit {
     });
     this.loadUser();
     this.loadDocument();
-    //this.activatedRoute.params.subscribe(params => {
-      //let userId = +params.get('');
-    //})
   }
 
   public loadUser(): void {
     let userT = this.authService.user;
-    //console.log('Test:' + userT.username);
     this.usersService.getUsuario(userT.username).subscribe((resp:any) => {
       this.user = resp;
-      //console.log(resp);
     })
   }
 
@@ -53,12 +49,11 @@ export class DocumentsComponent implements OnInit {
        if (id) {
          this.documentService.getDocument(id).subscribe(
             (resp:any) => this.documents = resp)
-            //console.log(this.documents);
        }
      })
   }
 
-  public create(): void {
+public create(): void {
   this.documents.anio = 2020;
   this.documents.area = 'Municipal';
   this.documents.estado = 'Pendiente';
@@ -70,7 +65,6 @@ export class DocumentsComponent implements OnInit {
             icon: 'success',
             title: 'Documento Creado con Exito!',
         })
-        //this.documents = new Document();
      },
       err => {
         this.errors = err.error.Errors as string[];

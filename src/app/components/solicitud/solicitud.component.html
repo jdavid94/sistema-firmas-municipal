@@ -6,7 +6,6 @@
               <table class="table table-bordered table-striped " *ngIf="solicitudes?.length>0">
                   <thead>
                       <tr>
-                          <th>ID</th>
                           <th>Area</th>
                           <th>Año</th>
                           <th>Folio</th>
@@ -17,11 +16,11 @@
                           <th>Fecha Ingreso</th>
                           <th>Estado</th>
                           <th>Detalle</th>
+                          <th>Eliminar</th>
                       </tr>
                   </thead>
                   <tbody>
                       <tr *ngFor="let sol of solicitudes" >
-                          <td>{{ sol.id }}</td>
                           <td>{{ sol.area }}</td>
                           <td>{{ sol.anio }}</td>
                           <td>{{ sol.folio }}</td>
@@ -34,7 +33,9 @@
                           <td>
                             <button class="btn btn-primary btn-block" type="button" [routerLink]="['/documents', sol.id]">Ver</button>
                           </td>
-                          </tr>
+                          <td>
+                            <button class="btn btn-danger btn-block" type="button" (click)="delete(sol)">Eliminar</button>
+                          </td>
                   </tbody>
               </table>
               <div class="alert alert-info" *ngIf="solicitudes?.length == 0">

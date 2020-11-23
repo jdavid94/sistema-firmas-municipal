@@ -11,8 +11,8 @@ import Swal from 'sweetalert2';
 })
 export class GestorDocumentosComponent implements OnInit {
 
-  documents: Document[];
-  docSelected: Document;
+  public documents: Document[];
+  public docSelected: Document;
 
   constructor(public nav: NavbarService, public documentService: DocumentsService) { }
 
@@ -20,11 +20,10 @@ export class GestorDocumentosComponent implements OnInit {
     this.nav.show();
     this.documentService.getDocuments().subscribe((resp:any) => {
       this.documents = resp;
-      //console.log(this.documents);
     })
   }
 
-  public delete(document : Document){
+public delete(document : Document){
     Swal.fire({
       title: 'Esta seguro?',
       text: `No sera posible recuperar este documento! ${document.anio} - ${document.folio}`,
@@ -48,5 +47,4 @@ export class GestorDocumentosComponent implements OnInit {
       }
     })
   }
-
 }

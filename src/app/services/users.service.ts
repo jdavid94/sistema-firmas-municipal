@@ -5,6 +5,7 @@ import { Cargo } from '../components/users/cargo';
 import { Role } from '../components/users/role';
 import { Observable, throwError  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { URL_BACKEND } from '../config/config';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class UsersService {
 
 
   private urlEndPoint: string = 'http://localhost:8081/api/usuarios';
+  //private urlEndPoint: string = URL_BACKEND + '/api/usuarios';
 
   constructor(private http: HttpClient) { }
 

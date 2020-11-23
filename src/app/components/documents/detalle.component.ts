@@ -7,11 +7,11 @@ import { ActivatedRoute } from '@angular/router';
 import { UsersService } from './../../services/users.service';
 import { SolicitudService } from './../../services/solicitud.service';
 import { User } from '../users/user';
-import Swal from 'sweetalert2';
 import { AuthService } from './../../services/auth.service';
 import { DatePipe } from '@angular/common';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+import Swal from 'sweetalert2';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -22,9 +22,9 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 })
 export class DetalleComponent implements OnInit {
 
-  titulo: string = 'Documento';
-  users: User[];
-  seleccionado: User;
+  public titulo: string = 'Documento';
+  public users: User[];
+  public seleccionado: User;
   public document: Document;
   public solicitudF: Solicitud;
   public solicitud: Solicitud = new Solicitud();
@@ -40,7 +40,7 @@ export class DetalleComponent implements OnInit {
     public documentService: DocumentsService, private activatedRoute: ActivatedRoute, public usersService: UsersService,
                           public solicitudService: SolicitudService, private datePipe: DatePipe) { }
 
-  ngOnInit(): void {
+ngOnInit(): void {
     this.nav.show();
     this.activatedRoute.paramMap.subscribe(params => {
       let id = +params.get('id');
@@ -49,7 +49,6 @@ export class DetalleComponent implements OnInit {
       });
       this.solicitudService.getSolicitud(id).subscribe(resp => {
         this.solicitudF = resp;
-        //console.log(this.solicitudF);
         this.newID = +this.solicitudF.document.id;
         if (this.newID != undefined) {
           this.documentService.getDocument(this.newID).subscribe(resp => {
@@ -65,16 +64,13 @@ export class DetalleComponent implements OnInit {
   public loadUsers(): void {
         this.usersService.getUsers().subscribe((resp:any) => {
           this.users = resp;
-          //console.log(this.users);
         })
   }
 
   public loadUser(): void {
     let userT = this.authService.user;
-    //console.log('Test:' + userT.username);
     this.usersService.getUsuario(userT.username).subscribe((resp:any) => {
       this.user = resp;
-      //console.log(resp);
     })
   }
 
@@ -90,11 +86,9 @@ export class DetalleComponent implements OnInit {
       "Usuario " + this.seleccionado.name + ' ' + this.seleccionado.lastName + " Asociado a Documento",
       "success");
     }
-    //console.log(this.seleccionado.name + ' ' + this.seleccionado.lastName);
   }
 
   public solicitar(): void {
-    //console.log(this.document);
     this.document.estado = "Espera Firma";
     this.documentService.solicitar(this.document).subscribe(
       resp => {
@@ -127,8 +121,8 @@ export class DetalleComponent implements OnInit {
       },
       err => {
         this.errors = err.error.Errors as string[];
-        //console.error('Cod of the error from backend: ' + err.status);
-        //console.error(err.error.Errors);
+        console.error('Cod of the error from backend: ' + err.status);
+        console.error(err.error.Errors);
       }
     )
   }

@@ -5,16 +5,18 @@
  .derecha{
    width: 40%;
    position: absolute;
-   top: 10%;
+   top: 20%;
    left: 60%;
    transform: translate(-20%, -20%);
  }
 
- .izquierda{
+ .contenedor{
    width: 100%;
    position: relative;
    top: 10%;
    right: -10%;
+   left: 60%;
+   font-size: 20px
  }
 
 .centrar{

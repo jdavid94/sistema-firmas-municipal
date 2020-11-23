@@ -16,8 +16,9 @@ export class SearchComponent implements OnInit {
   public docBus: any[] = [];
   public fdocBus: any[] = [];
   public documents: Document;
-  searchTerm: TipoDocument;
-  show: boolean = true
+  public searchTerm: TipoDocument;
+  public show: boolean = true;
+  
   constructor(public nav: NavbarService, public documentService: DocumentsService) { }
 
   ngOnInit(): void {
@@ -31,7 +32,6 @@ export class SearchComponent implements OnInit {
   public loadDocuments(): void {
         this.documentService.getDocuments().subscribe((resp:any) => {
           this.docBus = resp;
-          //console.log(this.documents);
         })
   }
 

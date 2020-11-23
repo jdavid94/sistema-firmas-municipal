@@ -3,6 +3,7 @@ import { Solicitud } from '../components/solicitud/models/solicitud';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
+import { URL_BACKEND } from '../config/config';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import { catchError } from 'rxjs/operators';
 export class SolicitudService {
 
   private urlEndPoint: string = 'http://localhost:8081/api/solicitudes';
+  //private urlEndPoint: string = URL_BACKEND + '/api/solicitudes';
 
   constructor(private http: HttpClient) { }
 
@@ -48,5 +50,16 @@ export class SolicitudService {
         })
       );
     }
+
+    delete(id: number): Observable<Solicitud> {
+         return this.http.delete<Solicitud>(`${this.urlEndPoint}/${id}`).pipe(
+           catchError(e => {
+             if (e.error.message){
+               console.log(e.error.message);
+             }
+             return throwError(e);
+           })
+         );
+     }
 
 }

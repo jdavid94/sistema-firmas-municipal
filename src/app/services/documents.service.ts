@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { Document } from '../components/documents/models/document';
 import { TipoDocument } from '../components/documents/models/tipo-document';
 import { catchError } from 'rxjs/operators';
+import { URL_BACKEND } from '../config/config';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import { catchError } from 'rxjs/operators';
 export class DocumentsService {
 
   private urlEndPoint: string = 'http://localhost:8081/api/documentos';
+  //private urlEndPoint: string = URL_BACKEND + '/api/documentos';
 
   constructor(private http: HttpClient) { }
 

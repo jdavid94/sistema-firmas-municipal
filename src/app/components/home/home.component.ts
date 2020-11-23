@@ -23,10 +23,8 @@ export class HomeComponent implements OnInit {
 
   public loadUser(): void {
     let userT = this.authService.user;
-    //console.log('Test:' + userT.username);
     this.usersService.getUsuario(userT.username).subscribe((resp:any) => {
       this.user = resp;
-      //console.log(resp);
     })
   }
 }
