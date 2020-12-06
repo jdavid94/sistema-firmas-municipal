@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parametros</title>
+</head>
+
+
+<div class="container">
+    <h2>Parametros del Sistema</h2>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <div class="card bg-light">
+                <div class="card-header bg-info text-white" style="font-size:22px">Configuración Gestor de Correos</div>
+                <div class="card-body">
+                    <form #userForm="ngForm">
+
+                        <div class="form-group row">
+                            <label for="name" class="col-form-label col-sm-2">Servidor</label>
+
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="servidor" style="font-size:22px">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="name" class="col-form-label col-sm-2">Puerto</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="puerto" style="font-size:22px">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="lastName" class="col-form-label col-sm-2">Servicio</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="servicio" style="font-size:22px">
+                            </div>
+                        </div>
+
+
+                    </form>
+                    <br />
+
+                    <div class="row justify-content-center align-self-center">
+                        <div class="col-4">
+                            <button class="btn btn-primary btn-block" role="button" style="font-size:22px">Actualizar</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col">
+
+            <div class="card bg-light">
+                <div class="card-header bg-info text-white" style="font-size:22px">Configuración Correo Principal</div>
+                <div class="card-body">
+                    <form #userForm="ngForm">
+
+                        <div class="form-group row">
+                            <label for="name" class="col-form-label col-sm-2">Correo</label>
+
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="servidor" style="font-size:22px">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="name" class="col-form-label col-sm-2">Contraseña</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="puerto" style="font-size:22px">
+                            </div>
+                        </div>
+
+                    </form>
+                    <br />
+
+                    <div class="row justify-content-center align-self-center">
+                        <div class="col-4">
+                            <button class="btn btn-primary btn-block" role="button" style="font-size:22px">Actualizar</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+</html>

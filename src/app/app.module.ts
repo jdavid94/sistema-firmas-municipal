@@ -34,26 +34,36 @@ import { SolicitudComponent } from './components/solicitud/solicitud.component';
 import { HomeComponent } from './components/home/home.component';
 import {DatePipe} from '@angular/common';
 import { GestorDocumentosComponent } from './components/documents/gestor-documentos.component';
+import { ReportesComponent } from './components/reportes/reportes.component';
+import { MaterialModule } from './material/material.module';
+//Material
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DataTablesModule } from 'angular-datatables';
+import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
+import { ParametrosComponent } from './components/parametros/parametros.component';
 
 
 const routes: Routes = [
   {path: 'directive', component: DirectiveComponent },
-  {path: 'customers', component: CustomersComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
+  {path: 'customers', component: CustomersComponent, canActivate:[AuthGuard]},
   {path: 'users', component: UsersComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
   {path: 'users/detail', component: UserDetailComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'} },
   {path: 'users/detail/:id', component: UserDetailComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'} },
   {path: 'solicitudes', component: SolicitudComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
   {path: 'customers/page/:page', component: CustomersComponent, canActivate:[AuthGuard]},
   {path: '', redirectTo: 'login', pathMatch: 'full'},
-  {path: 'customers/form', component: FormComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'} },
-  {path: 'customers/form/:id', component: FormComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'} },
+  {path: 'customers/form', component: FormComponent, canActivate:[AuthGuard]},
+  {path: 'customers/form/:id', component: FormComponent, canActivate:[AuthGuard]},
   {path: 'login', component: LoginComponent },
-  {path: 'documents', component: DocumentsComponent, canActivate:[AuthGuard]},
+  { path: 'documents', component: DocumentsComponent, canActivate: [AuthGuard] },
+  { path: 'reportes', component: ReportesComponent, canActivate:[AuthGuard]},
   {path: 'documents/:id', component: DetalleComponent, canActivate:[AuthGuard]},
   {path: 'gestor', component: GestorDocumentosComponent, canActivate:[AuthGuard]},
   {path: 'gestor/:id', component: DocumentsComponent, canActivate:[AuthGuard]},
   {path: 'search', component: SearchComponent, canActivate:[AuthGuard]},
   {path: 'home', component: HomeComponent, canActivate:[AuthGuard]},
+  { path: 'perfilUsuario', component: PerfilUsuarioComponent, canActivate: [AuthGuard]},
+  { path: 'parametros', component: ParametrosComponent, canActivate: [AuthGuard, RoleGuard], data: { role: 'ROLE_ADMIN' } }
 ];
 
 @NgModule({
@@ -74,7 +84,10 @@ const routes: Routes = [
     SolicitudComponent,
     HomeComponent,
     UserDetailComponent,
-    GestorDocumentosComponent
+    GestorDocumentosComponent,
+    ReportesComponent,
+    PerfilUsuarioComponent,
+    ParametrosComponent    
   ],
   imports: [
     BrowserModule,
@@ -82,7 +95,10 @@ const routes: Routes = [
     HttpClientModule,
     FormsModule,
     [RouterModule.forRoot(routes)],
-    [MatDatepickerModule, MatNativeDateModule],
+    MaterialModule,
+    MatDatepickerModule, 
+    BrowserAnimationsModule,
+    DataTablesModule
   ],
   exports: [RouterModule],
   providers: [

@@ -4,7 +4,7 @@ import { CustomerService } from './../../services/customer.service';
 import Swal from 'sweetalert2'
 import {HttpEventType} from '@angular/common/http';
 import { ModalService } from './../../services/modal.service';
-
+import { NavbarService } from './../../services/navbar.service';
 
 @Component({
   selector: 'app-profile-details',
@@ -20,10 +20,10 @@ export class ProfileDetailsComponent implements OnInit {
   progress:number = 0;
 
   constructor(private customerService: CustomerService,
-    public modalService: ModalService) { }
+    public modalService: ModalService, public nav: NavbarService) { }
 
   ngOnInit(): void {
-
+    this.nav.show();
   }
 
   selectedPhoto(event:any) {

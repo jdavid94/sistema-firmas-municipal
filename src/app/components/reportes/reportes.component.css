@@ -1,0 +1,92 @@
+.centrar {
+    position: absolute;
+    left: 45%;
+    transform: translate(-10%, -10%);
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    font-size: 22px;
+}
+
+th.mat-sort-header-sorted {
+    color: black;
+}
+
+
+/*estilos para la tabla*/
+
+table th {
+    background-color: #337ab7 !important;
+    color: white;
+}
+
+table>tbody>tr>td {
+    vertical-align: middle !important;
+}
+
+
+/*para alinear los botones y cuadro de busqueda*/
+
+.btn-group,
+.btn-group-vertical {
+    position: absolute !important;
+}
+
+
+/* Generic Button Styles */
+
+.button {
+    padding: 8px 12px;
+    background: #0A5175;
+    display: block;
+    width: 120px;
+    margin: 10px 0 0px 0;
+    border-radius: 3px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    text-align: center;
+    font-size: 0.8em;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.10);
+    -moz-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.10);
+    -webkit-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.10);
+}
+
+.button:hover {
+    background: #8BC3A3;
+    color: white;
+}
+
+
+/* Send Button Styles */
+
+.form-btn {
+    width: 180px;
+    display: block;
+    height: auto;
+    padding: 15px;
+    color: #fff;
+    background: #8BC3A3;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    margin: auto;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.10);
+    -moz-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.10);
+    -webkit-box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.10);
+}
+
+.form-btn:hover {
+    background: #111;
+    color: white;
+    border: none;
+}
+
+.form-btn:active {
+    opacity: 0.9;
+}
