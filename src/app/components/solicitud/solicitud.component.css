@@ -1,7 +1,8 @@
 .container{
   position: absolute;
   top: 15%;
-  left: 35%;
+  left: 30%;
   transform: translate(-20%, -20%);
   text-align:center;
 }
+

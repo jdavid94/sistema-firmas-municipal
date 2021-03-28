@@ -1,11 +1,13 @@
 <div class="centrar">
   <div class="container mt-5">
-    <select [(ngModel)] ="searchTerm" (ngModelChange) ="search()" name="tipo" required="required" class="form">
+    <h2>Buscador de Documentos Municipales</h2>
+    <hr>
+    <select [(ngModel)] ="searchTerm" (ngModelChange) ="search()" name="tipo" required="required" class="form" style="font-size: 22px">
       <option [ngValue]="undefined">Filtro - Tipo Documento</option>
       <option *ngFor="let tipo of tipos" [ngValue]="tipo">{{tipo.tipo}}</option>
     </select>
     <br>
-    <input autocomplete="off" #termino type="text" (keyup)="buscar(termino.value)" type="text" name="buscar" id="buscar" required="required" class="form" placeholder="Buscar Documento.." />
+    <input autocomplete="off" #termino type="text" (keyup)="buscar(termino.value)" type="text" name="buscar" id="buscar" required="required" class="form" style="font-size: 22px" placeholder="Buscar Documento.." />
   </div>
 </div>
 

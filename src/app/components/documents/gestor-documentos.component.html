@@ -1,11 +1,11 @@
-<div class="container">
+<div class="container" style="font-size: 22px">
+  <h2 style="text-align: left">Listado de Documentos</h2>
+  <hr>
   <div class="row">
     <div class="col">
       <div class="card border-primary mb-3">
           <div class="card-header">
-              <div class="card-body text-primary">
-                  <h5 class="card-title">Listado de Documentos</h5>
-                  <br>
+              <div class="card-body text-primary">                 
                   <table class="table table-bordered table-striped text-center" *ngIf="documents?.length>0">
                       <thead>
                           <tr>
@@ -24,10 +24,10 @@
                               <td>{{ doc.tipoDocumento.tipo }}</td>
                               <td>{{ doc.estado }}</td>
                               <td>
-                                <button class="btn btn-primary btn-block" type="button" [routerLink]="['/gestor', doc.id]">Editar</button>
+                                <button class="btn btn-primary btn-block" type="button" [routerLink]="['/gestor', doc.id]" [disabled]="doc.estado === 'Firmado y Aprobado'">Editar</button>
                               </td>
                               <td>
-                                <button class="btn btn-danger btn-block" type="button" (click)="delete(doc)">Eliminar</button>
+                                <button class="btn btn-danger btn-block" type="button" (click)="delete(doc)" [disabled]="doc.estado === 'Firmado y Aprobado'">Eliminar</button>
                               </td>
                               </tr>
                       </tbody>

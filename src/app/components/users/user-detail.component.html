@@ -4,19 +4,19 @@
   </li>
 </ul>
 
-<div class="container">
+<div class="container" style="font-size: 22px">
   <div class="row">
     <div class="col">
       <div class="card bg-light">
           <div class="card-header bg-info text-white">{{ title }}</div>
           <div class="card-body">
-              <form #userForm="ngForm">
+              <form #userForm="ngForm" autocomplete="off">
 
                 <div class="form-group row">
                     <label for="name" class="col-form-label col-sm-2">Username</label>
 
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" [(ngModel)]="user.username" name="username" #username="ngModel">
+                        <input type="text" class="form-control" [(ngModel)]="user.username" name="username" #username="ngModel" autocomplete="off" style="font-size: 22px">
                         <div class="alert alert-danger" *ngIf="username.invalid && (username.dirty || username.touched)">
                           <div *ngIf="username.errors.required">
                                 Username is Required
@@ -28,10 +28,18 @@
                     </div>
                 </div>
 
+                <div class="form-group row" *ngIf="user.id">
+                  <label for="name" class="col-form-label col-sm-2">Contraseña</label>
+                
+                  <div class="col-sm-6" >
+                    <input type="password" class="form-control" style="font-size:22px" Placeholder="******">
+                  </div>
+                </div>
+
                   <div class="form-group row">
                       <label for="name" class="col-form-label col-sm-2">Nombre</label>
                       <div class="col-sm-6">
-                          <input type="text" class="form-control" [(ngModel)]="user.name" name="name" #name="ngModel">
+                          <input type="text" class="form-control" [(ngModel)]="user.name" name="name" #name="ngModel" autocomplete="off" style="font-size: 22px">
                           <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
                             <div *ngIf="name.errors.required">
                                   Name is Required
@@ -46,7 +54,7 @@
                   <div class="form-group row">
                       <label for="lastName" class="col-form-label col-sm-2">Apellido</label>
                       <div class="col-sm-6">
-                          <input type="text" class="form-control" [(ngModel)]="user.lastName" name="lastName" #lastName="ngModel">
+                          <input type="text" class="form-control" [(ngModel)]="user.lastName" name="lastName" #lastName="ngModel" autocomplete="off" style="font-size: 22px">
                           <div class="alert alert-danger" *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
                             <div *ngIf="lastName.errors.required">
                                   Last Name is Required
@@ -58,7 +66,7 @@
                   <div class="form-group row">
                       <label for="" class="col-form-label col-sm-2">Email</label>
                       <div class="col-sm-6">
-                          <input type="text" class="form-control" [(ngModel)]="user.email" name="email" #email="ngModel">
+                          <input type="text" class="form-control" [(ngModel)]="user.email" name="email" #email="ngModel" autocomplete="off" style="font-size: 22px">
                           <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
                             <div *ngIf="email.errors.required">
                                   Email is Required
@@ -73,7 +81,7 @@
                   <div class="form-group row">
                       <label for="name" class="col-form-label col-sm-2">Rut</label>
                       <div class="col-sm-6">
-                          <input type="text" class="form-control" [(ngModel)]="user.userRut" name="userRut" #rut="ngModel">
+                          <input type="text" class="form-control" [(ngModel)]="user.userRut" name="userRut" #rut="ngModel" autocomplete="off" style="font-size: 22px">
                           <div class="alert alert-danger" *ngIf="rut.invalid && (rut.dirty || rut.touched)">
                             <div *ngIf="rut.errors.required">
                                   userRut is Required
@@ -88,7 +96,7 @@
                   <div class="form-group row">
                       <label for="cargos" class="col-form-label col-sm-2">Cargo</label>
                       <div class="col-sm-6">
-                          <select [compareWith]="compareCargo" class="form-control" [(ngModel)]="user.cargo" name="cargo">
+                          <select [compareWith]="compareCargo" class="form-control" [(ngModel)]="user.cargo" name="cargo" style="font-size: 22px" style="font-size: 22px">
                             <option [ngValue]="undefined">--- Select Cargo ---</option>
                             <option *ngFor="let cargo of cargos" [ngValue]="cargo">{{cargo.tipo}}</option>
                           </select>
@@ -99,7 +107,7 @@
                   <div class="form-group row" *ngIf="user.id">
                       <label for="roles" class="col-form-label col-sm-2">Rol</label>
                       <div class="col-sm-6">
-                          <select [compareWith]="compareRole" class="form-control" [(ngModel)]="user.roles" name="roles">
+                          <select [compareWith]="compareRole" class="form-control" [(ngModel)]="user.roles" name="roles" style="font-size: 22px">
                             <option [ngValue]="undefined">--- Select Rol ---</option>
                             <option *ngFor="let rol of roles" [ngValue]="rol">{{rol.username}}</option>
                           </select>
@@ -111,13 +119,13 @@
 
         <div class="row justify-content-center align-self-center">
           <div class="col-4">
-            <button class="btn btn-primary btn-block" role="button" (click)="create()" *ngIf="!user.id else elseBlock" [disabled]="!userForm.form.valid">Crear</button>
+            <button class="btn btn-primary btn-block" role="button" (click)="create()" *ngIf="!user.id else elseBlock" [disabled]="!userForm.form.valid" style="font-size: 22px">Crear</button>
 
             <ng-template #elseBlock>
-              <button class="btn btn-primary btn-block" role="button" (click)="update()" [disabled]="!userForm.form.valid">Actualizar</button>
+              <button class="btn btn-primary btn-block" role="button" (click)="update()" [disabled]="!userForm.form.valid" style="font-size: 22px">Actualizar</button>
             </ng-template>
             <br>
-              <button class="btn btn-danger btn-block" type="button" [routerLink]="['/users']">Regresar</button>
+              <button class="btn btn-danger btn-block" type="button" [routerLink]="['/users']" style="font-size: 22px">Regresar</button>
           </div>
         </div>
 

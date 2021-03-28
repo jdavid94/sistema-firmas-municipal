@@ -3,20 +3,22 @@
 <div class="contenedor">
   <div class="container">
     <div class="row">
-      <div class="col-7">
+      <div class="col-8">
+        <h2>Detalle de Documento</h2>
+        <hr>
         <div class="card bg-light" *ngIf="document">
           <div class="card-header bg-info text-white">
             <h4>Documento Folio : {{ document.anio }}-{{ document.folio }}</h4>
           </div>
           <div class="card-body">
             <ul class="list-group my-2" id="contentToConvert">
-              <li class="card-header"><h5>Detalle Documento</h5></li>
+              <div class="card-header"><h5>Detalle Documento</h5></div>
               <li class="list-group-item">Area : {{document.area}}</li>
               <li class="list-group-item">Tipo : {{document.tipoDocumento.tipo}}</li>
               <li class="list-group-item">Glosa : {{document.glosa}}</li>
-              <li class="card-header">Estado : {{document.estado}}</li>
+              <div class="card-header">Estado : {{document.estado}}</div>
               <br>
-              <li class="card-header"><h5>Firmas Solicitadas</h5></li>
+              <div class="card-header"><h5>Firmas Solicitadas</h5></div>
               <li class="list-group-item" *ngIf="document.firmaIzquierda">Firma Izquierda : {{document.firmaIzquierda}}</li>
               <li class="list-group-item" *ngIf="!document.firmaIzquierda">Firma Izquierda : No Solicitada</li>
               <li class="list-group-item" *ngIf="document.firmaDerecha">Firma Derecha : {{document.firmaDerecha}}</li>
@@ -32,14 +34,16 @@
           </div>
         </div>
       </div>
-        <div class="col-5">
+        <div class="col-4">
+          <h2>Funcionarios Firmantes</h2>
+          <hr>
           <div class="card bg-light">
             <div class="card-header bg-info text-white">
               <h4>Buscar Usuario Firma</h4>
             </div>
             <div class="card-body">
               <ul class="list-group my-2">
-                <li class="card-header"><h5>Usuarios</h5></li>
+                <div class="card-header"><h5>Usuarios</h5></div>
                 <select class="browser-default custom-select custom-select-lg mb-3" name="usuarios" [(ngModel)]="seleccionado">
                   <option [ngValue]="undefined">Seleccione Usuario</option>
                   <option *ngFor="let user of users" [ngValue]="user">{{user.name}} {{user.lastName}}</option>

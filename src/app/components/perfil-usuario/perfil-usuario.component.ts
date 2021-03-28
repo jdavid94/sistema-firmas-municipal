@@ -4,6 +4,7 @@ import { UsersService } from './../../services/users.service';
 import { User } from './../users/user';
 import Swal from 'sweetalert2'
 import { AuthService } from './../../services/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-perfil-usuario',
@@ -15,6 +16,7 @@ export class PerfilUsuarioComponent implements OnInit {
   public user: User = new User();
   public title = 'Datos Usuario';
   public errors: string[];
+  form: FormGroup;
 
   constructor(public nav: NavbarService, public usersService: UsersService, public authService: AuthService) { }
   

@@ -3,7 +3,7 @@ import { DocumentsService } from './../../services/documents.service';
 import { NavbarService } from './../../services/navbar.service';
 import { Document } from '../documents/models/document';
 import { Solicitud } from '../solicitud/models/solicitud';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, UrlTree } from '@angular/router';
 import { UsersService } from './../../services/users.service';
 import { SolicitudService } from './../../services/solicitud.service';
 import { User } from '../users/user';
@@ -12,6 +12,7 @@ import { DatePipe } from '@angular/common';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import Swal from 'sweetalert2';
+import { browser } from 'protractor';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -30,8 +31,10 @@ export class DetalleComponent implements OnInit {
   public solicitud: Solicitud = new Solicitud();
   public user: User = new User();
   public errors: string[];
-  public firma : string = "../../../assets/img/firma.png";
+  public firma : string = "../../../assets/img/firma.png";  
   public firma2 : string = "../../../assets/img/firma2.png";
+  public fechaFirma1: string;
+  public fechaFirma2: string;
   public newID: number;
 
 
@@ -59,6 +62,7 @@ ngOnInit(): void {
     });
     this.loadUsers();
     this.loadUser();
+  this.fechaFirma1 = this.datePipe.transform(new Date(), "medium");;
   }
 
   public loadUsers(): void {
@@ -254,6 +258,7 @@ ngOnInit(): void {
     }
   };
   pdfMake.createPdf(docDefinition).open();
+  
 }
 
 async showPdfFirmado() {
@@ -338,7 +343,7 @@ let docDefinition = {
     }
   }
 };
-pdfMake.createPdf(docDefinition).open();
+pdfMake.createPdf(docDefinition).open(); 
 }
 
 async showPdfFirmado2() {
@@ -404,7 +409,7 @@ let docDefinition = {
           margin: [20, 90, 0, 0],
           alignment: 'center'
         },{
-          text: 'Firmado: '+ dateTimeFirma + '\n' + '______________________' + '\n' + this.document.firmaIzquierda + '\n' + 'Director Municipal',
+            text: 'Firmado: ' + this.fechaFirma1 + '\n' + '______________________' + '\n' + this.document.firmaIzquierda + '\n' + 'Director Municipal',
           margin: [20, 0, 0, 0],
           alignment: 'center'}
         ],
@@ -428,7 +433,7 @@ let docDefinition = {
     }
   }
 };
-pdfMake.createPdf(docDefinition).open();
+  pdfMake.createPdf(docDefinition).open();   
 }
 
 

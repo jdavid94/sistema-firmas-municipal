@@ -13,7 +13,7 @@
             <div class="card bg-light">
                 <div class="card-header bg-info text-white" style="font-size:22px">{{ title }}</div>
                 <div class="card-body">
-                    <form #userForm="ngForm">
+                    <form #userProfileForm="ngForm" autocomplete="off">
 
                         <div class="form-group row">
                             <label for="name" class="col-form-label col-sm-2">Username</label>
@@ -34,10 +34,19 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="name" class="col-form-label col-sm-2">Contraseña</label>
+                        
+                            <div class="col-sm-6">
+                                <input type="password" class="form-control"
+                                    style="font-size:22px" Placeholder="******">                                
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="name" class="col-form-label col-sm-2">Nombre</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" [(ngModel)]="user.name" name="name"
-                                    #name="ngModel" style="font-size:22px">
+                                <input type="text" class="form-control" [(ngModel)]="user.name" name="name" id="name"
+                                    #name="ngModel" style="font-size:22px" autocomplete="off">
                                 <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
                                     <div *ngIf="name.errors.required">
                                         Name is Required
@@ -52,8 +61,8 @@
                         <div class="form-group row">
                             <label for="lastName" class="col-form-label col-sm-2">Apellido</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" [(ngModel)]="user.lastName" name="lastName"
-                                    #lastName="ngModel" style="font-size:22px">
+                                <input type="text" class="form-control" [(ngModel)]="user.lastName" name="lastName" id="lastName"
+                                    #lastName="ngModel" style="font-size:22px" autocomplete="off">
                                 <div class="alert alert-danger"
                                     *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
                                     <div *ngIf="lastName.errors.required">
@@ -66,8 +75,8 @@
                         <div class="form-group row">
                             <label for="" class="col-form-label col-sm-2">Email</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" [(ngModel)]="user.email" name="email"
-                                    #email="ngModel" style="font-size:22px">
+                                <input type="text" class="form-control" [(ngModel)]="user.email" name="email" id="email"
+                                    #email="ngModel" style="font-size:22px" autocomplete="off">
                                 <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
                                     <div *ngIf="email.errors.required">
                                         Email is Required
@@ -82,8 +91,8 @@
                         <div class="form-group row">
                             <label for="name" class="col-form-label col-sm-2">Rut</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" [(ngModel)]="user.userRut" name="userRut"
-                                    #rut="ngModel" style="font-size:22px">
+                                <input type="text" class="form-control" [(ngModel)]="user.userRut" name="userRut" id="userRut"
+                                    #rut="ngModel" style="font-size:22px" autocomplete="off">
                                 <div class="alert alert-danger" *ngIf="rut.invalid && (rut.dirty || rut.touched)">
                                     <div *ngIf="rut.errors.required">
                                         userRut is Required
@@ -93,19 +102,16 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>                 
+                        </div>       
+                                <br />
+                        <div class="row justify-content-center align-self-center">
+                            <div class="col-4">
+                                <button class="btn btn-primary btn-block" role="button" (click)="update()" [disabled]="!userProfileForm.form.valid"
+                                    style="font-size:22px" type="submit" id="submit" name="submit">Actualizar</button>
+                            </div>
+                        </div>
                        
-                    </form>
-                    <br />
-
-
-                    <div class="row justify-content-center align-self-center">
-                        <div class="col-4">                                              
-                                <button class="btn btn-primary btn-block" role="button" (click)="update()"
-                                    [disabled]="!userForm.form.valid" style="font-size:22px">Actualizar</button>                
-                       </div>
-                    </div>
-
+                    </form>       
                 </div>
             </div>
         </div>

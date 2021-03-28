@@ -1,47 +1,54 @@
-<div class="container">
-  <div class="card border-primary">
-      <div class="card-header">
-          <div class="card-body text-primary">
-              <h5 class="card-title">Listado de Solicitudes</h5>
-              <table class="table table-bordered table-striped " *ngIf="solicitudes?.length>0">
-                  <thead>
-                      <tr>
-                          <th>Area</th>
-                          <th>Año</th>
-                          <th>Folio</th>
-                          <th>Tipo Documento</th>
-                          <th>Solicitante</th>
-                          <th>Firma Izquierda</th>
-                          <th>Firma Derecha</th>
-                          <th>Fecha Ingreso</th>
-                          <th>Estado</th>
-                          <th>Detalle</th>
-                          <th>Eliminar</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr *ngFor="let sol of solicitudes" >
-                          <td>{{ sol.area }}</td>
-                          <td>{{ sol.anio }}</td>
-                          <td>{{ sol.folio }}</td>
-                          <td>{{ sol.tipoDocumento }}</td>
-                          <td>{{ sol.solicitante }}</td>
-                          <td>{{ sol.firmaIzquierda }}</td>
-                          <td>{{ sol.firmaDerecha }}</td>
-                          <td>{{ sol.fechaIngreso | date:"mediumDate" }}</td>
-                          <td>{{ sol.estado }}</td>
-                          <td>
-                            <button class="btn btn-primary btn-block" type="button" [routerLink]="['/documents', sol.id]">Ver</button>
-                          </td>
-                          <td>
-                            <button class="btn btn-danger btn-block" type="button" (click)="delete(sol)">Eliminar</button>
-                          </td>
-                  </tbody>
-              </table>
-              <div class="alert alert-info" *ngIf="solicitudes?.length == 0">
-                No records in the DB
-              </div>
+<div class="container" style="font-size: 22px">  
+  <div class="row">
+    <div class="col-12">
+      <h2 style="text-align: left">Listado de Solicitudes</h2>
+      <hr>
+      <div class="card border-primary" style="width: 150%;">
+        <div class="card-header">
+          <div class="card-body text-primary">        
+            <table class="table table-bordered table-striped " *ngIf="solicitudes?.length>0">
+              <thead>
+                <tr>
+                  <th>Area</th>
+                  <th>Año</th>
+                  <th>Folio</th>
+                  <th>Tipo Documento</th>
+                  <th>Solicitante</th>
+                  <th>Firma Izquierda</th>
+                  <th>Firma Derecha</th>
+                  <th>Fecha Ingreso</th>
+                  <th>Estado</th>
+                  <th>Detalle</th>
+                  <th>Eliminar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let sol of solicitudes">
+                  <td>{{ sol.area }}</td>
+                  <td>{{ sol.anio }}</td>
+                  <td>{{ sol.folio }}</td>
+                  <td>{{ sol.tipoDocumento }}</td>
+                  <td>{{ sol.solicitante }}</td>
+                  <td>{{ sol.firmaIzquierda }}</td>
+                  <td>{{ sol.firmaDerecha }}</td>
+                  <td>{{ sol.fechaIngreso | date:"mediumDate" }}</td>
+                  <td>{{ sol.estado }}</td>
+                  <td>
+                    <button class="btn btn-primary btn-block" type="button" [routerLink]="['/documents', sol.id]">Ver</button>
+                  </td>
+                  <td>
+                    <button class="btn btn-danger btn-block" type="button" (click)="delete(sol)"
+                      [disabled]="sol.estado === 'Firmado y Aprobado'">Eliminar</button>
+                  </td>
+              </tbody>
+            </table>
+            <div class="alert alert-info" *ngIf="solicitudes?.length == 0">
+              No records in the DB
+            </div>
           </div>
+        </div>
       </div>
-  </div>
+    </div>
+   
+  </div>  
 </div>

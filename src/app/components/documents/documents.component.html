@@ -5,6 +5,8 @@
 </ul>
   <!-- Form Area -->
 <div class="container mt-5">
+  <h2>Creador de Documentos Municipales</h2>
+  <hr>
   <div class="inner contact">
                       <!-- Form Area -->
                   <div class="contact-form">
@@ -16,9 +18,9 @@
                                     El folio es requerido
                               </div>
                             </div>
-                            <input type="text" name="folio" #folio="ngModel" id="folio" required="required" class="form" for="folio" [(ngModel)]="documents.folio" placeholder="Folio"/>
+                            <input type="text" name="folio" #folio="ngModel" id="folio" style="font-size: 22px" required="required" class="form" for="folio" [(ngModel)]="documents.folio" placeholder="Folio"/>
 
-                              <select class="form" [compareWith]="compareTipo" [(ngModel)]="documents.tipoDocumento" required="required" name="tipoDocumento">
+                              <select class="form" [compareWith]="compareTipo" [(ngModel)]="documents.tipoDocumento" required="required" name="tipoDocumento" style="font-size: 22px">
                                   <option [ngValue]="undefined">Tipo Documento</option>
                                   <option *ngFor="let tipo of tipos" [ngValue]="tipo">{{tipo.tipo}}</option>
                               </select>
@@ -30,7 +32,7 @@
                             </div>
                           </div>
                           <div class="col-xs-6 wow animated slideInRight" data-wow-delay=".5s">
-                              <textarea name="glosa" #glosa="ngModel" id="message" required="required" class="form textarea" for="glosa" [(ngModel)]="documents.glosa"  placeholder="Glosa"></textarea>
+                              <textarea name="glosa" #glosa="ngModel" id="message" required="required" style="font-size: 22px" class="form textarea" for="glosa" [(ngModel)]="documents.glosa"  placeholder="Glosa"></textarea>
                           </div>
                           <!-- End Right Inputs -->
                           <div class="relative fullwidth col-xs-12">

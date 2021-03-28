@@ -8,49 +8,95 @@
 </head>
 
 
-<div class="container">
+<div class="container mt-5">
     <h2>Parametros del Sistema</h2>
     <hr>
     <div class="row">
-        <div class="col">
+        <div class="col-8">
             <div class="card bg-light">
                 <div class="card-header bg-info text-white" style="font-size:22px">Configuración Gestor de Correos</div>
                 <div class="card-body">
-                    <form #userForm="ngForm">
+                    <form #paramsForm="ngForm" *ngFor="let par of parametros" autocomplete="off">
 
                         <div class="form-group row">
-                            <label for="name" class="col-form-label col-sm-2">Servidor</label>
-
+                            <label for="servidor" class="col-form-label col-sm-2">Servidor</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" name="servidor" style="font-size:22px">
+                                <div class="alert alert-danger" *ngIf="servidor.invalid && (servidor.dirty || servidor.touched)">
+                                    <div *ngIf="servidor.errors.required">
+                                        El Servidor es requerido
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" #servidor="ngModel" name="servidor" id="servidor" style="font-size:22px" [(ngModel)]="par.servidor" autocomplete="off" required>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="name" class="col-form-label col-sm-2">Puerto</label>
+                            <label for="puerto" class="col-form-label col-sm-2">Puerto</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" name="puerto" style="font-size:22px">
+                                <div class="alert alert-danger" *ngIf="puerto.invalid && (puerto.dirty || puerto.touched)">
+                                    <div *ngIf="puerto.errors.required">
+                                        El Puerto es requerido
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" name="puerto" #puerto="ngModel" id="puerto" style="font-size:22px" [(ngModel)]="par.puerto" autocomplete="off" required>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="lastName" class="col-form-label col-sm-2">Servicio</label>
+                            <label for="servicio" class="col-form-label col-sm-2">Servicio</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" name="servicio" style="font-size:22px">
+                                <div class="alert alert-danger" *ngIf="servicio.invalid && (servicio.dirty || servicio.touched)">
+                                    <div *ngIf="servicio.errors.required">
+                                        El Servicio es requerido
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" name="servicio" #servicio="ngModel" id="servicio" style="font-size:22px" [(ngModel)]="par.servicio" autocomplete="off" required>
                             </div>
                         </div>
 
-
+                        <div class="row justify-content-center align-self-center">
+                            <div class="col-4">
+                                <button class="btn btn-primary btn-block" role="button" style="font-size:22px" (click)=update() [disabled]="!paramsForm.form.valid">Actualizar</button>
+                            </div>
+                        </div>
                     </form>
                     <br />
 
-                    <div class="row justify-content-center align-self-center">
-                        <div class="col-4">
-                            <button class="btn btn-primary btn-block" role="button" style="font-size:22px">Actualizar</button>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card bg-light">
+                <div class="card-header bg-info text-white" style="font-size:22px">Gestor Tipos Documentos</div>
+                <form #tiposForm="ngForm" autocomplete="off" onsubmit="this.reset()">
+                    <ul class="list-group my-3">
+                        <select class="browser-default custom-select custom-select-lg mb-3" name="tiposDocumentos"
+                            [(ngModel)]="seleccionado">
+                            <option [ngValue]="undefined">Tipo Documento</option>
+                            <option *ngFor="let tipo of tipos" [ngValue]="tipo">{{tipo.tipo}}</option>
+                        </select>
+                    </ul>
+
+                    <div class="alert alert-danger" *ngIf="tipoDocumento.invalid && (tipoDocumento.dirty || tipoDocumento.touched)">
+                        <div *ngIf="tipoDocumento.errors.required">
+                            *Campo Requerido
                         </div>
                     </div>
 
-                </div>
+                    <input type="text" class="form-control" name="tipoDocumento" #tipoDocumento="ngModel" style="font-size:22px" placeholder="Tipo Documentos"
+                        autocomplete="off" required [(ngModel)]="tiposDocuments.tipo">
+
+
+                    <br>
+                    <h4 class="card-title">
+                        <button class="btn btn-primary" type="submit" id="submit" name="submit" role="button" (click)="create()" [disabled]="!tiposForm.form.valid">Agregar</button>
+                    </h4>
+                    <h4 class="card-title">
+                        <button class="btn btn-danger" type="button" (click)="delete(seleccionado)">Eliminar</button>
+                    </h4>
+                </form>                
             </div>
         </div>
     </div>
@@ -61,31 +107,42 @@
             <div class="card bg-light">
                 <div class="card-header bg-info text-white" style="font-size:22px">Configuración Correo Principal</div>
                 <div class="card-body">
-                    <form #userForm="ngForm">
+                    <form #correoForm="ngForm" *ngFor="let cor of correo" autocomplete="off">
 
                         <div class="form-group row">
-                            <label for="name" class="col-form-label col-sm-2">Correo</label>
+                            <label for="correo" class="col-form-label col-sm-2">Correo</label>
 
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" name="servidor" style="font-size:22px">
+                                <div class="alert alert-danger" *ngIf="correo.invalid && (correo.dirty || correo.touched)">
+                                    <div *ngIf="correo.errors.required">
+                                        El Correo es requerido
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" #correo="ngModel" name="correo" style="font-size:22px" placeholder="Correo Municipal" [(ngModel)]="cor.correo" autocomplete="off" required>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="name" class="col-form-label col-sm-2">Contraseña</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" name="puerto" style="font-size:22px">
+                                <div class="alert alert-danger" *ngIf="password.invalid && (password.dirty || password.touched)">
+                                    <div *ngIf="password.errors.required">
+                                        La contraseña es requerida
+                                    </div>
+                                </div>
+                                <input type="password" class="form-control" #password="ngModel" name="password" style="font-size:22px" placeholder="Password" [(ngModel)]="cor.password" autocomplete="off" required>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center align-self-center">
+                            <div class="col-4">
+                                <button class="btn btn-primary btn-block" role="button" style="font-size:22px" (click)=update2()
+                                    [disabled]="!correoForm.form.valid">Actualizar</button>
                             </div>
                         </div>
 
                     </form>
-                    <br />
-
-                    <div class="row justify-content-center align-self-center">
-                        <div class="col-4">
-                            <button class="btn btn-primary btn-block" role="button" style="font-size:22px">Actualizar</button>
-                        </div>
-                    </div>
+                    <br />               
 
                 </div>
             </div>
