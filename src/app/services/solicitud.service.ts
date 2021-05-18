@@ -23,6 +23,10 @@ export class SolicitudService {
     return this.http.get<Solicitud>(this.urlEndPoint);
   }
 
+  getSolicitudesPage(page: number): Observable<any> {
+    return this.http.get<any>(this.urlEndPoint + '/page/' + page);
+  }
+
   create(solicitud: Solicitud) : Observable<any> {
     return this.http.post<Solicitud>(this.urlEndPoint, solicitud).pipe(
       catchError(e => {

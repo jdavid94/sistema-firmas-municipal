@@ -22,8 +22,14 @@ export class DocumentsComponent implements OnInit {
   public documents: Document = new Document();
   public errors: string[];
   public user: User = new User();
+  public docBus: any[] = [];
+  public lastObj: any;
+  public lastFolio: any;
+  public searchTerm: TipoDocument;
 
-  constructor(public nav: NavbarService, public documentService: DocumentsService, private router: Router, public authService: AuthService, public usersService: UsersService, private activatedRoute: ActivatedRoute) { }
+
+  constructor(public nav: NavbarService, public documentService: DocumentsService, private router: Router, public authService: AuthService, 
+    public usersService: UsersService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.nav.show();
@@ -34,6 +40,7 @@ export class DocumentsComponent implements OnInit {
     });
     this.loadUser();
     this.loadDocument();
+    this.loadDocuments();
   }
 
   public loadUser(): void {
@@ -52,9 +59,10 @@ export class DocumentsComponent implements OnInit {
        }
      })
   }
+  
 
 public create(): void {
-  this.documents.anio = 2020;
+  this.documents.anio = 2021;
   this.documents.area = 'Municipal';
   this.documents.estado = 'Pendiente';
   this.documents.user = this.user;
@@ -64,7 +72,11 @@ public create(): void {
         Swal.fire({
             icon: 'success',
             title: 'Documento Creado con Exito!',
+          text: `Documento ${this.PadLeft(this.lastFolio, 4)} Creado Correctamente`
         })
+      this.ngOnInit();
+      //console.log(resp.document.id); ,
+      // text: `Documento ${resp.document.id} Creado Correctamente`
      },
       err => {
         this.errors = err.error.Errors as string[];
@@ -72,12 +84,14 @@ public create(): void {
         console.error(err.error.Errors);
       }
   );
+  // Volvemos a llamar los arreglos.
+  this.ngOnInit();
 }
 
 public update(): void {
   this.documentService.update(this.documents).subscribe(
     resp => {
-      this.router.navigate(['/gestor'])
+      this.router.navigate(['/gestor/page', 0])
       Swal.fire({
           icon: 'success',
           title: 'Documento Actualizado!',
@@ -98,4 +112,28 @@ compareTipo(o1: Document, o2: Document):boolean {
   }
   return o1 ===null || o2 ===null || o1 ===undefined || o2 ===undefined? false: o1.id===o2.id;
 }
+
+  public loadDocuments(): void {
+    this.documentService.getDocuments().subscribe((resp: any) => {
+      this.docBus = resp;
+      //console.log(this.docBus)
+      this.lastObj = this.docBus[this.docBus.length - 1];
+      this.lastFolio = this.lastObj.id + 1
+      //console.log(this.lastFolio);
+    })
+  }
+
+  setFolio(): void {   
+    if (this.documents.tipoDocumento != undefined && this.documents.id === undefined)  {
+      this.documents.folio = this.PadLeft(this.lastFolio, 4);
+    } else if (this.documents.tipoDocumento === undefined && this.documents.estado === undefined) {
+      this.documents.folio = ''
+    } 
+    //&& this.documents.estado != 'Pendiente' if (this.documents.estado != 'Pendiente' && this.documents.tipoDocumento === undefined)
+  }
+
+  PadLeft(value, length) {
+    return (value.toString().length < length) ? this.PadLeft("0" + value, length) : value;   
+  }
+
 }

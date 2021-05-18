@@ -19,6 +19,21 @@ export class DocumentsService {
   getTipoDocument(): Observable<TipoDocument[]> {
     return this.http.get<TipoDocument[]>(this.urlEndPoint +'/tipos');
   }
+  
+  getDocumentPageTipo(id: number, page: number): Observable<any> {
+    //return of(CUSTOMERS);
+    return this.http.get<any>(this.urlEndPoint + '/search/filter/' + id + '/' + page);
+  }
+
+  getDocumentPage(page: number): Observable<any> {
+    //return of(CUSTOMERS);
+    return this.http.get<any>(this.urlEndPoint + '/page/' + page);
+  }
+
+  getDocumentPageGestor(page: number): Observable<any> {
+    //return of(CUSTOMERS);
+    return this.http.get<any>(this.urlEndPoint + '/gestor/' + page);
+  }
 
   getDocument(id:number):Observable<Document> {
     return this.http.get<Document>(`${this.urlEndPoint}/${id}`);
@@ -36,12 +51,13 @@ export class DocumentsService {
         }
         if (e.error.message){
           console.log(e.error.message);
-        }
+        }     
         return throwError(e);
-      })
-    );
+      })                    
+    );    
   }
 
+  
   buscarByFolio( termino: string){
     return this.http.get(`${this.urlEndPoint}/buscar?folio=${termino}`);
     }

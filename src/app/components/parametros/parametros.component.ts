@@ -42,7 +42,7 @@ export class ParametrosComponent implements OnInit {
   public loadTipoDocumento(){
     this.tipoService.getTipoDocuments().subscribe((resp: any) => {
       this.tipos = resp;
-      console.log(this.tipos);
+      //console.log(this.tipos);
     })
   }
 

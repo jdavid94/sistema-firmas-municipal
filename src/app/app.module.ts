@@ -41,6 +41,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DataTablesModule } from 'angular-datatables';
 import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
 import { ParametrosComponent } from './components/parametros/parametros.component';
+import { Paginator2Component } from './components/paginator2/paginator2.component';
+import { Paginator3Component } from './components/paginator3/paginator3.component';
 
 
 const routes: Routes = [
@@ -49,16 +51,17 @@ const routes: Routes = [
   {path: 'users', component: UsersComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
   {path: 'users/detail', component: UserDetailComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'} },
   {path: 'users/detail/:id', component: UserDetailComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'} },
-  {path: 'solicitudes', component: SolicitudComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
+  { path: 'solicitudes/page/:page', component: SolicitudComponent, canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
   {path: 'customers/page/:page', component: CustomersComponent, canActivate:[AuthGuard]},
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'customers/form', component: FormComponent, canActivate:[AuthGuard]},
   {path: 'customers/form/:id', component: FormComponent, canActivate:[AuthGuard]},
   {path: 'login', component: LoginComponent },
   { path: 'documents', component: DocumentsComponent, canActivate: [AuthGuard] },
+  { path: 'search/page/:page', component: SearchComponent, canActivate: [AuthGuard] },
   { path: 'reportes', component: ReportesComponent, canActivate:[AuthGuard]},
   {path: 'documents/:id', component: DetalleComponent, canActivate:[AuthGuard]},
-  {path: 'gestor', component: GestorDocumentosComponent, canActivate:[AuthGuard]},
+  { path: 'gestor/page/:page', component: GestorDocumentosComponent, canActivate:[AuthGuard]},
   {path: 'gestor/:id', component: DocumentsComponent, canActivate:[AuthGuard]},
   {path: 'search', component: SearchComponent, canActivate:[AuthGuard]},
   {path: 'home', component: HomeComponent, canActivate:[AuthGuard]},
@@ -87,7 +90,9 @@ const routes: Routes = [
     GestorDocumentosComponent,
     ReportesComponent,
     PerfilUsuarioComponent,
-    ParametrosComponent    
+    ParametrosComponent,
+    Paginator2Component,
+    Paginator3Component    
   ],
   imports: [
     BrowserModule,

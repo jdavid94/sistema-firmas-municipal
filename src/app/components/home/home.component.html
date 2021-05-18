@@ -15,7 +15,7 @@
         <p *ngIf="authService.hasRole('ROLE_USER')">Comenzar a Generar Documentos</p>
         <a *ngIf="authService.hasRole('ROLE_USER')" class="btn btn-primary btn-lg" routerLink="/documents" role="button">Documentos</a>
         <p *ngIf="authService.hasRole('ROLE_ADMIN')">Revisar Solicitudes Pendientes</p>
-        <a *ngIf="authService.hasRole('ROLE_ADMIN')" class="btn btn-primary btn-lg" routerLink="/solicitudes" role="button">Solicitudes</a>
+        <a *ngIf="authService.hasRole('ROLE_ADMIN')" class="btn btn-primary btn-lg" [routerLink]="['/solicitudes/page', 0]" role="button">Solicitudes</a>
     </div>
 </div>
 

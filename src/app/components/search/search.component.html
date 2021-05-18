@@ -2,46 +2,82 @@
   <div class="container mt-5">
     <h2>Buscador de Documentos Municipales</h2>
     <hr>
-    <select [(ngModel)] ="searchTerm" (ngModelChange) ="search()" name="tipo" required="required" class="form" style="font-size: 22px">
+    <select  [(ngModel)] ="searchTerm" (ngModelChange) ="search()" name="tipo" required="required" class="form" style="font-size: 22px">
       <option [ngValue]="undefined">Filtro - Tipo Documento</option>
       <option *ngFor="let tipo of tipos" [ngValue]="tipo">{{tipo.tipo}}</option>
     </select>
     <br>
-    <input autocomplete="off" #termino type="text" (keyup)="buscar(termino.value)" type="text" name="buscar" id="buscar" required="required" class="form" style="font-size: 22px" placeholder="Buscar Documento.." />
+    <input  autocomplete="off" #termino type="text" (keyup)="buscar(termino.value)" type="text" name="buscar" id="buscar" required="required" class="form" style="font-size: 22px" placeholder="Buscar Folio..." />
   </div>
 </div>
 
-<div class="centrar2">
-  <div class="card-group animated fadIn fast" *ngIf="show">
-    <div *ngFor="let doc of docBus">
-      <div class="container mt-3">
-        <div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-header">Folio : {{doc.anio}} - {{doc.folio}}</h5>
-          <br>
-          <h6 class="card-subtitle mb-2 text-muted">Tipo : {{doc.tipoDocumento.tipo}}</h6>
-          <h6 class="card-subtitle mt-2 text-muted">Estado : {{doc.estado}}</h6>
-          <p class="card-text mt-2">Glosa: {{doc.glosa}}</p>
-          <a [routerLink]="['/documents', doc.id]" type ="button" class="btn btn-info">Detalle</a>
+<div class="centrar2" style="font-size: 22px">
+  <div *ngIf="show">
+    <div class="card-header">
+      <div class="card-body text-primary">
+        <table class="table table-bordered table-striped text-center" *ngIf="docBus?.length>0">
+          <thead>
+            <tr>
+              <th>Año</th>
+              <th>Folio</th>
+              <th>Tipo</th>
+              <th>Estado</th>
+              <th>Ver</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let doc of docBus">
+              <td>{{ doc.anio }}</td>
+              <td>{{ doc.folio }}</td>
+              <td>{{ doc.tipoDocumento.tipo }}</td>
+              <td>{{ doc.estado }}</td>
+              <td>
+                <button class="btn btn-primary btn-block" type="button" [routerLink]="['/documents', doc.id]">Detalle</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="alert alert-info" *ngIf="docBus?.length == 0">
+          Debe Ingresar Parametros de Busqueda
         </div>
-      </div>
+        <paginator-nav *ngIf="paginador" [paginador]="paginador"></paginator-nav>
       </div>
     </div>
   </div>
-  <div class="card-group animated fadIn fast" *ngIf="!show">
-    <div *ngFor="let doc of fdocBus">
-      <div class="container mt-3">
-        <div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-header">Folio : {{doc.anio}} - {{doc.folio}}</h5>
-          <br>
-          <h6 class="card-subtitle mb-2 text-muted">Tipo : {{doc.tipoDocumento.tipo}}</h6>
-          <h6 class="card-subtitle mt-2 text-muted">Estado : {{doc.estado}}</h6>
-          <p class="card-text mt-2">Glosa: {{doc.glosa}}</p>
-          <a [routerLink]="['/documents', doc.id]" type ="button" class="btn btn-info">Detalle</a>
-        </div>
-      </div>
-      </div>
-    </div>
-  </div>
+
+  <div  *ngIf="!show">              
+            <div class="card-header">
+              <div class="card-body text-primary">
+                <table class="table table-bordered table-striped text-center" *ngIf="fdocBus?.length>0">
+                  <thead>
+                    <tr>
+                      <th>Año</th>
+                      <th>Folio</th>
+                      <th>Tipo</th>
+                      <th>Estado</th>
+                      <th>Ver</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let doc of fdocBus">
+                      <td>{{ doc.anio }}</td>
+                      <td>{{ doc.folio }}</td>
+                      <td>{{ doc.tipoDocumento.tipo }}</td>
+                      <td>{{ doc.estado }}</td>
+                      <td>
+                        <button class="btn btn-primary btn-block" type="button"
+                          [routerLink]="['/documents', doc.id]">Detalle</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="alert alert-info" *ngIf="fdocBus?.length == 0">
+                  Debe Ingresar Parametros de Busqueda
+                </div>
+                <paginator-nav *ngIf="paginador2" [paginador]="paginador2"></paginator-nav>
+              </div>
+            </div>                  
+  </div>  
 </div>
+
+

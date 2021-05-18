@@ -5,6 +5,7 @@ import { NavbarService } from './../../services/navbar.service';
 import Swal from 'sweetalert2';
 import { DocumentsService } from './../../services/documents.service';
 import { Document } from '../documents/models/document';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-solicitud',
@@ -15,14 +16,30 @@ import { Document } from '../documents/models/document';
 export class SolicitudComponent implements OnInit {
 
   solicitudes: Solicitud[] = [];
-  constructor(public solicitudService: SolicitudService, public nav: NavbarService, public documentService: DocumentsService) { }
+  public paginador: any;
+  constructor(public solicitudService: SolicitudService, public nav: NavbarService, public documentService: DocumentsService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.nav.show();
-    this.solicitudService.getSolicitudes().subscribe((resp:any) => {
-      this.solicitudes = resp;
+    this.loadSolicitudes();
+    //this.solicitudService.getSolicitudes().subscribe((resp:any) => {
+      //this.solicitudes = resp;
       //console.log(this.solicitudes);
-    })
+    //})
+  }
+
+  public loadSolicitudes(): void {
+    this.activatedRoute.paramMap.subscribe(params => {
+      let page: number = +params.get('page');
+      if (!page) {
+        page = 0;
+      }
+      this.solicitudService.getSolicitudesPage(page).subscribe(
+        resp => {
+          this.solicitudes = resp.content; // Son documentos paginados
+          this.paginador = resp;
+        });
+    });
   }
 
   public delete(solicitud: Solicitud){

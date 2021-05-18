@@ -18,9 +18,9 @@
                                     El folio es requerido
                               </div>
                             </div>
-                            <input type="text" name="folio" #folio="ngModel" id="folio" style="font-size: 22px" required="required" class="form" for="folio" [(ngModel)]="documents.folio" placeholder="Folio"/>
+                            <input type="text" name="folio" #folio="ngModel" id="folio" style="font-size: 22px" class="form" for="folio" [(ngModel)]="documents.folio" placeholder="Generación Automática" readonly/>
 
-                              <select class="form" [compareWith]="compareTipo" [(ngModel)]="documents.tipoDocumento" required="required" name="tipoDocumento" style="font-size: 22px">
+                              <select class="form" [compareWith]="compareTipo" [(ngModel)]="documents.tipoDocumento" (ngModelChange) ="setFolio()" required="required" name="tipoDocumento" style="font-size: 22px">
                                   <option [ngValue]="undefined">Tipo Documento</option>
                                   <option *ngFor="let tipo of tipos" [ngValue]="tipo">{{tipo.tipo}}</option>
                               </select>
@@ -49,7 +49,7 @@
                               </div>
 
                               <div class="relative fullwidth col-xs-12 mt-2">
-                                <button type="submit" id="submit" name="submit" role="button" class="form-btn semibold" [routerLink]="['/gestor']">Volver</button>
+                                <button type="submit" id="submit" name="submit" role="button" class="form-btn semibold" [routerLink]="['/gestor/page', 0]">Volver</button>
                               </div>
                             </ng-template>
                         </div>

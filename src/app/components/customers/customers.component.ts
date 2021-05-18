@@ -29,6 +29,8 @@ ngOnInit(): void {
       resp => {
         this.customers = resp.content;
         this.paginador = resp;
+        //console.log(this.customers)
+        //console.log(this.paginador)
       });
   });
   this.modalService.notificatedUpload.subscribe((resp:any) => {
